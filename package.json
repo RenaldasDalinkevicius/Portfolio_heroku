@@ -6,8 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "build": "cd Portfolio && npm run build",
-    "heroku-postbuild": "cd Portfolio && npm install && npm run build"
+    "build": "cd client && npm run build",
+    "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "engines": {
     "node": "17.4.0"
