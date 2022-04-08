@@ -10,6 +10,9 @@ module.exports = {
 devServer: {
   historyApiFallback: true
 },
+stats: {
+  errorDetails: true
+},
 resolve: {
   fallback: {
     "path": require.resolve("path-browserify"),
