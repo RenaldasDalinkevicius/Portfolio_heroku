@@ -107,7 +107,7 @@ export default function Contact() {
         )
     }
     async function SumbitForm(val) {
-        await fetch("http://localhost:5000/record/add", {
+        await fetch("record/add", {
             method: "POST",
             body: JSON.stringify(val),
             headers: {
