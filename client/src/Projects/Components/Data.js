@@ -1,12 +1,12 @@
-import dungeon_crawler from "./images/dungeon_crawler.png"
-import time_tracking_dashboard from "./images/time-tracking-dashboard_page.png"
-import fighting_game from "./images/fighting_game.png"
-import meme_generator from "./images/meme_generator.png"
-import picture_gallery from "./images/picture_gallery.png"
-import dashboard_page from "./images/dashboard_page.png"
-import portfolio_page from "./images/portfolio_page.png"
-import tenzies from "./images/tenzies.png"
-import portfolio_new from "./images/portfolio_new.png"
+import dungeon_crawler from "./images/dungeon_crawler.PNG"
+import time_tracking_dashboard from "./images/time-tracking-dashboard_page.PNG"
+import fighting_game from "./images/fighting_game.PNG"
+import meme_generator from "./images/meme_generator.PNG"
+import picture_gallery from "./images/picture_gallery.PNG"
+import dashboard_page from "./images/dashboard_page.PNG"
+import portfolio_page from "./images/portfolio_page.PNG"
+import tenzies from "./images/tenzies.PNG"
+import portfolio_new from "./images/portfolio_new.PNG"
 export default {
     "succes" : true,
     "data": [

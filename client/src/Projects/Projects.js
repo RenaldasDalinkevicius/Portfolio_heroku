@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import styled from "styled-components";
-import data from "./Components/data"
+import data from "./Components/Data"
 import Project from "./Components/Project"
 import { Route, Routes, useNavigate} from "react-router-dom";
 
@@ -32,10 +32,10 @@ export default function Projects() {
         let path = "/projects"
         navigate(path)
     }
-    const ProjectElement = Data.data.map(data => {
+    const ProjectElement = data.data.map(data => {
         return <Project title={data.title} text={data.text} github={data.github} live={data.live} key={data.id} img={data.img} link={data.id}/>
     })
-    const RouteElement = Data.data.map(data => {
+    const RouteElement = data.data.map(data => {
         return <Route path={`${data.id}`} key={data.id} element={<ProjectFixed onClick={routeChange}><Project title={data.title} text={data.text} img={data.img} isRoute={isRoute} about={data.about} aboutOther={data.aboutOther}/></ProjectFixed>}/>
     })
     return (
