@@ -4,12 +4,8 @@ import { ObjectId } from "mongodb"
 import path from "path"
 
 export const recordRoutes = express.Router()
-const __dirname = path.resolve(path.dirname(""))
-recordRoutes.use("*", function(req, res) {
-	res.sendFile(path.join(__dirname, "client/dist/index.html"))
-})
 recordRoutes.route("/record").get(function (req, res) {
-  let db_connect = dbo.getDb("portfolio")
+  let db_connect = getDb("portfolio")
   db_connect.collection("form").find({}).toArray(function(err, result) {
       if (err) throw err
       res.json(result)
@@ -47,7 +43,7 @@ recordRoutes.route("/update/:id").post(function (req, response) {
         lastName: req.body.lastName,
         email: req.body.email,
         about: req.body.about 
-        },  
+        },
     }
 })
 recordRoutes.route("/:id").delete((req, response) => {
@@ -59,3 +55,7 @@ recordRoutes.route("/:id").delete((req, response) => {
     response.json(obj)
   })
 })
+const __dirname = path.resolve(path.dirname(""))
+recordRoutes.use("*", function(req, res) {
+	res.sendFile(path.join(__dirname, "client/dist/index.html"))
+}) 

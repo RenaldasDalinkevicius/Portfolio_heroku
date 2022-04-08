@@ -126,12 +126,15 @@ export default function Contact() {
             setTimeout(() => {
                 alert("Submitted")
                 axios.post("/record/add", {
-                    body: JSON.stringify(values)
+                        firstName: values.firstName,
+                        lastName: values.lastName,
+                        email: values.email,
+                        about: values.about
                 })
                 .catch((err) => console.log(err))
                 resetForm({values: ""})
                 setSubmitting(false)
-            }, 400);
+            }, 400)
           }}>
             <StyledForm>
                 <MainWrapper>
