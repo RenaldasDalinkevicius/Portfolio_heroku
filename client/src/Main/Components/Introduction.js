@@ -1,6 +1,5 @@
-import React from "react";
-import styled from "styled-components";
-
+import React from "react"
+import styled from "styled-components"
 import CV from "../../Pdf/RenaldasCV.pdf"
 
     const IntroductionDiv = styled.div`
