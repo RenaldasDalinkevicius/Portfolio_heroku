@@ -19,21 +19,21 @@ recordRoutes.route("/record/:id").get(function (req, res) {
   let db_connect = getDb()
   let myquery = { _id: ObjectId( req.params.id )}
   db_connect
-      .collection("records")
+      .collection("form")
       .findOne(myquery, function (err, result) {
         if (err) throw err
         res.json(result)
       })
 })
 recordRoutes.route("/record/add").post(function (req, response) {
-  let db_connect = getDb()
+  let db_connect = getDb("portfolio")
   let myobj = {
     firstName: req.body.firstName,
     lastName: req.body.lastName,
     email: req.body.email,
     about: req.body.about
   }
-  db_connect.collection("records").insertOne(myobj, function (err, res) {
+  db_connect.collection("form").insertOne(myobj, function (err, res) {
     if (err) throw err
     response.json(res)
   })

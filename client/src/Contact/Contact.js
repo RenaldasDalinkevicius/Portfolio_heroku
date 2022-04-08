@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Formik, useField, Form, Field} from "formik";
 import * as Yup from "yup"
-
+import axios from "axios"
 
     const StyledForm = styled(Form)`
     min-height: 100vh;
@@ -106,19 +106,6 @@ export default function Contact() {
             </Wrapper>
         )
     }
-    async function SumbitForm(val) {
-        await fetch("record/add", {
-            method: "POST",
-            body: JSON.stringify(val),
-            headers: {
-                "Content-Type": "application/json"
-            }
-        })
-        .catch(error => {
-            alert(`Issue occured contacting the Form server, full error (${error})`)
-            return
-        })
-    }
     return (
         <Formik initialValues={{firstName:"", lastName:"", email:"", about:""}}
         validationSchema={Yup.object({
@@ -137,10 +124,13 @@ export default function Contact() {
         })} 
         onSubmit={(values, { setSubmitting, resetForm }) => {
             setTimeout(() => {
-              alert("Submitted")
-              SumbitForm(values)
-              resetForm({values: ""})
-              setSubmitting(false)
+                alert("Submitted")
+                axios.post("/record/add", {
+                    body: JSON.stringify(values)
+                })
+                .catch((err) => console.log(err))
+                resetForm({values: ""})
+                setSubmitting(false)
             }, 400);
           }}>
             <StyledForm>
