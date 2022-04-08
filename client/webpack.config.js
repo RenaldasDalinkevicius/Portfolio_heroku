@@ -1,4 +1,5 @@
 const path = require("path")
+const CaseSensitivePathsPlugin = require('case-sensitive-paths-webpack-plugin');
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const htmlPlugin = new HtmlWebPackPlugin({
  template: "./public/index.html",
@@ -33,5 +34,5 @@ mode: "development",
     use: "file-loader"
   }
 ]},
- plugins: [htmlPlugin]
+ plugins: [htmlPlugin, new CaseSensitivePathsPlugin()]
 };
