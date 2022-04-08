@@ -1,4 +1,4 @@
-import Dungeon_crawler from "./images/dungeon_crawler.png"
+import Dungeon_crawler from "./images/dungeon_crawler.PNG"
 import Time_tracking_dashboard from "./images/time-tracking-dashboard_page.png"
 import Fighting_game from "./images/fighting_game.png"
 import Meme_generator from "./images/meme_generator.png"
