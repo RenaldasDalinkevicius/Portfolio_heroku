@@ -29,7 +29,7 @@ mode: "development",
    use: ["style-loader", "css-loader"]
   },
   {
-    test: /\.(png|jpg|svg|gif|pdf|PNG)$/,
+    test: /\.(png|jpg|svg|gif|pdf)$/,
     use: "file-loader"
   }
 ]},
