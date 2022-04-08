@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Formik, useField, Form, Field} from "formik";
-import * as Yup from "Yup"
+import * as Yup from "yup"
 
 
     const StyledForm = styled(Form)`

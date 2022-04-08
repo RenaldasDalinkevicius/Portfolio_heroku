@@ -4,9 +4,7 @@ const client = new MongoClient(Db, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
- 
 var _db
- 
 export function connectToServer(callback) {
     client.connect(function (err, db) {
       if (db)
