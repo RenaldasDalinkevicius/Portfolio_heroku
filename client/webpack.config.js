@@ -7,11 +7,12 @@ const htmlPlugin = new HtmlWebPackPlugin({
  publicPath: "./"
 });
 module.exports = {
+output: {
+  path: __dirname + "/dist",
+  filename: "bundle.js"
+},
 devServer: {
   historyApiFallback: true
-},
-stats: {
-  errorDetails: true
 },
 resolve: {
   fallback: {
