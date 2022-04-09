@@ -81,7 +81,7 @@ export default {
             title: "Portfolio",
             text: "Portfolio made in React",
             github: "https://github.com/KodeRenaldas/Portfolio",
-            live: "https://koderenaldas.github.io/Portfolio/",
+            live: "https://kodehode.herokuapp.com",
             img: "https://raw.githubusercontent.com/KodeRenaldas/Portfolio/main/src/Projects/Components/Images/portfolio_new.PNG",
             about: "After learning React, i wanted to make a new portfolio website, even though the old one was still good, i felt like i could do so much more cool stuff in React, so thats what i did",
             aboutOther: "Making this project really has thought me alot of new things in React, like the use of Context and Routes, and i got to try out alot of different components that are available, like the React-carousel, styled-components and circularProgressbars"
