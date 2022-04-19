@@ -20,13 +20,23 @@ import { Route, Routes, useNavigate} from "react-router-dom"
     width: 100%;
     height: 100%;
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    align-content: center;
+    align-items: center;
     overflow: auto;
     `
-
+    const CommentDiv = styled.div`
+    background-color: ${props => props.theme.primary};
+    width: 80%;
+    `
+    const Comment = styled.div`
+    background-color: ${props => props.theme.secondary};
+    color: ${props => props.theme.text};
+    width: 100%;
+    margin: 0.5em 0;
+    `
 export default function Projects() {
-    const [isRoute, setIsRoute] = useState()
+    const [isRoute, setIsRoute] = useState(true)
     const [isLoading, setIsLoading] = useState(true)
     const [data, setData] = useState()
     useEffect(() => {
@@ -44,7 +54,9 @@ export default function Projects() {
         return <Project title={data.title} text={data.text} github={data.github} live={data.live} key={data._id} img={data.img} link={data._id}/>
     }):"Loading"
     const RouteElement = !isLoading?data.map(data => {
-        return <Route path={`${data._id}`} key={data._id} element={<ProjectFixed onClick={routeChange}><Project title={data.title} text={data.text} img={data.img} isRoute={isRoute} about={data.about} aboutOther={data.aboutOther}/></ProjectFixed>}/>
+        return <Route path={`${data._id}`} key={data._id} element={<ProjectFixed onClick={routeChange}><Project title={data.title} text={data.text} img={data.img} isRoute={isRoute} about={data.about} aboutOther={data.aboutOther}/>{data.comments&&<CommentDiv>{data.comments.map(data => {
+            return <Comment>{data.comment}</Comment>
+        })}</CommentDiv>}</ProjectFixed>}/>
     }):"Loading"
     return (
         <ProjectsGrid>
