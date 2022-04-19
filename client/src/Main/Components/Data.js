@@ -60,12 +60,3 @@ export default {
         }
     ]
 }
-
-/*
-            background: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Python_logo_01.svg/640px-Python_logo_01.svg.png",
-            background: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/640px-React-icon.svg.png"
-            background: "https://cdn.worldvectorlogo.com/logos/javascript-1.svg"
-            background: "https://upload.wikimedia.org/wikipedia/commons/6/62/CSS3_logo.svg"
-            background: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/HTML5_Badge.svg/640px-HTML5_Badge.svg.png"
-            background: "https://jobloop.no/images/jobloop-logo-white.png"
-*/

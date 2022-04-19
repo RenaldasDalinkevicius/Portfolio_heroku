@@ -1,8 +1,8 @@
-import React, {useState} from "react";
-import styled from "styled-components";
-import data from "./Components/Data"
+import axios from "axios"
+import React, {useEffect, useState} from "react"
+import styled from "styled-components"
 import Project from "./Components/Project"
-import { Route, Routes, useNavigate} from "react-router-dom";
+import { Route, Routes, useNavigate} from "react-router-dom"
 
     const ProjectsGrid = styled.div`
     background-color: ${props => props.theme.primary};
@@ -26,18 +26,26 @@ import { Route, Routes, useNavigate} from "react-router-dom";
     `
 
 export default function Projects() {
-    const [isRoute, setIsRoute] = useState(true)
+    const [isRoute, setIsRoute] = useState()
+    const [isLoading, setIsLoading] = useState(true)
+    const [data, setData] = useState()
+    useEffect(() => {
+        (axios.get("/record").then((res) => {
+            setData(res.data)
+            setIsLoading(false)
+        }))
+    }, [])
     let navigate = useNavigate()
     const routeChange=() => {
         let path = "/projects"
         navigate(path)
     }
-    const ProjectElement = data.data.map(data => {
-        return <Project title={data.title} text={data.text} github={data.github} live={data.live} key={data.id} img={data.img} link={data.id}/>
-    })
-    const RouteElement = data.data.map(data => {
-        return <Route path={`${data.id}`} key={data.id} element={<ProjectFixed onClick={routeChange}><Project title={data.title} text={data.text} img={data.img} isRoute={isRoute} about={data.about} aboutOther={data.aboutOther}/></ProjectFixed>}/>
-    })
+    const ProjectElement = !isLoading?data.map(data => {
+        return <Project title={data.title} text={data.text} github={data.github} live={data.live} key={data._id} img={data.img} link={data._id}/>
+    }):"Loading"
+    const RouteElement = !isLoading?data.map(data => {
+        return <Route path={`${data._id}`} key={data._id} element={<ProjectFixed onClick={routeChange}><Project title={data.title} text={data.text} img={data.img} isRoute={isRoute} about={data.about} aboutOther={data.aboutOther}/></ProjectFixed>}/>
+    }):"Loading"
     return (
         <ProjectsGrid>
             {ProjectElement}

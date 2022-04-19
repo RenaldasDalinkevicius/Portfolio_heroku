@@ -1,9 +1,9 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import styled from "styled-components";
 import { CarouselProvider, Slide, Slider, Dot, Image} from "pure-react-carousel";
 import "pure-react-carousel/dist/react-carousel.es.css"
-import Data from "../../Projects/Components/Data"
 import Introduction from "./Introduction"
+import axios from "axios";
 
     const CarouselWrapper = styled.div`
     margin-bottom: 5px;
@@ -23,13 +23,21 @@ import Introduction from "./Introduction"
     height: 100%;
     `
 export default function Carousel() {
-    const ImgElement = Data.data.map(data => {
-        return <Slide key={data.id} index={data.id}><Img isBgImage={true} src={data.img} tag="div"></Img></Slide>
-    })
+    const [isLoading, setIsLoading] = useState(true)
+    const [data, setData] = useState()
+    useEffect(() => {
+        (axios.get("/record").then((res) => {
+            setData(res.data)
+            setIsLoading(false)
+        }))
+    }, [])
+    const ImgElement = !isLoading?data.map(data => {
+        return <Slide key={data._id} index={data._id}><Img isBgImage={true} src={data.img} tag="div"></Img></Slide>
+    }):"Loading"
     return (
         <CarouselWrapper>
             <Introduction/>
-            <CarouselStyled naturalSlideHeight={100} naturalSlideWidth={100} totalSlides={Data.data.length} infinite={true} isPlaying={true} interval={10000}>
+            <CarouselStyled naturalSlideHeight={100} naturalSlideWidth={100} totalSlides={!isLoading?data.length:0} infinite={true} isPlaying={true} interval={10000}>
                 <SliderStyled>
                     {ImgElement}
                 </SliderStyled>

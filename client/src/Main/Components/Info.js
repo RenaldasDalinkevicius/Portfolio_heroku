@@ -6,6 +6,7 @@ import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 import { faAngleRight, faAngleLeft} from "@fortawesome/free-solid-svg-icons";
 
     const InfoDisplay = styled.div`
+    height: 100vh;
     background-color: ${props => props.theme.primary};
     `
     const InfoTitle = styled.h2`
@@ -22,9 +23,6 @@ import { faAngleRight, faAngleLeft} from "@fortawesome/free-solid-svg-icons";
     }
     `
     const CarouselStyled = styled(CarouselProvider)`
-    height: 100vh;
-    width: 100%;
-    margin: 0 auto;
     display: flex;
     justify-content: space-between;
     `
@@ -32,8 +30,7 @@ import { faAngleRight, faAngleLeft} from "@fortawesome/free-solid-svg-icons";
     display: flex;
     `
     const SliderStyled = styled(Slider)`
-    height: 100%;
-    width: 100%;
+    flex: 1 1 auto;
     @media (max-width: 630px) {
         overflow-y: auto;
     }
@@ -41,6 +38,7 @@ import { faAngleRight, faAngleLeft} from "@fortawesome/free-solid-svg-icons";
     const Wrapper = styled.div`
     display: flex;
     width: 100%;
+    height: 100vh;
     flex-direction: column;
     `
     const StyledDot = styled(Dot)`
@@ -126,7 +124,7 @@ export default function Info() {
     })
     return (
         <InfoDisplay>
-            <CarouselStyled naturalSlideHeight={100} naturalSlideWidth={100} totalSlides={Data.about.length} infinite={true} isPlaying={false} interval={10000}>
+            <CarouselStyled naturalSlideHeight={100} naturalSlideWidth={100} totalSlides={Data.about.length} infinite={true} isPlaying={false} interval={10000} isIntrinsicHeight={true}>
                 <ButtonB><FontAwesomeIcon icon={faAngleLeft}/></ButtonB>
                 <Wrapper>
                     <SliderStyled>

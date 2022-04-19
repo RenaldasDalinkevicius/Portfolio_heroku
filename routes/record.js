@@ -6,7 +6,7 @@ import path from "path"
 export const recordRoutes = express.Router()
 recordRoutes.route("/record").get(function (req, res) {
   let db_connect = getDb("portfolio")
-  db_connect.collection("form").find({}).toArray(function(err, result) {
+  db_connect.collection("projects").find({}).toArray(function(err, result) {
       if (err) throw err
       res.json(result)
     })
