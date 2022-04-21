@@ -23,12 +23,18 @@ recordRoutes.route("/record/getcomment/:id").get(function (req, res) {
 })
 recordRoutes.route("/record/addcomment/:id").post(function (req, response) {
   let db_connect = getDb("portfolio")
+  let myquery = { _id: ObjectId(req.params.id )}
   let myobj = {
     name: req.body.name,
     comment: req.body.comment
   }
-  let myquery = { _id: ObjectId(req.params.id )}
-  db_connect.collection("projects").updateOne({myquery}, {$push: {"comments": {myobj}}})
+  db_connect.collection("projects").updateOne(
+    myquery, {
+      $push: {
+        comments: myobj
+      }
+    }
+  )
 })
 recordRoutes.route("/record/add").post(function (req, response) {
   let db_connect = getDb("portfolio")

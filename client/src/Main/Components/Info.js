@@ -27,7 +27,7 @@ import { faAngleRight, faAngleLeft} from "@fortawesome/free-solid-svg-icons";
     justify-content: space-between;
     `
     const SlideStyled = styled(Slide)`
-    display: flex;
+    display: block;
     `
     const SliderStyled = styled(Slider)`
     flex: 1 1 auto;
@@ -124,7 +124,7 @@ export default function Info() {
     })
     return (
         <InfoDisplay>
-            <CarouselStyled naturalSlideHeight={100} naturalSlideWidth={100} totalSlides={Data.about.length} infinite={true} isPlaying={false} interval={10000} isIntrinsicHeight={true}>
+            <CarouselStyled naturalSlideHeight={100} naturalSlideWidth={100} totalSlides={Data.about.length} infinite={true} isPlaying={false} interval={10000}>
                 <ButtonB><FontAwesomeIcon icon={faAngleLeft}/></ButtonB>
                 <Wrapper>
                     <SliderStyled>

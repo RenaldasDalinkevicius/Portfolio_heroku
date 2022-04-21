@@ -51,7 +51,7 @@ import axios from "axios"
     padding: 0.5em;
     transition: transform 200ms ease-in-out;
     &: hover {
-        transform: scale(1.05);
+        transform: scale(1.01);
     }
     `
     const Header = styled.h4`
@@ -87,7 +87,7 @@ export default function AddComment(props) {
             .max(20, ">20")
             .required("*"),
             comment: Yup.string()
-            .max(100, ">100")
+            .max(200, ">200")
             .required("*")
         })} 
         onSubmit={(values, { setSubmitting, resetForm }) => {

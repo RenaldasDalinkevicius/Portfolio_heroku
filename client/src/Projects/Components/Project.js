@@ -3,21 +3,25 @@ import styled from "styled-components";
 import { NavLink} from "react-router-dom";
 
     const ProjectDiv = styled.div`
-    max-width: ${props=> props.isRoute?"80%":"500px"};
+    max-width: ${props => props.isRoute?"80%":"500px"};
+    margin: ${props => props.isRoute&&"0 auto"};
     `
     const ProjectImgContainer = styled.div`
     height: 500px;
-    height: ${props => props.isRoute?"50%":"500px"}
+    height: ${props => props.isRoute?"50%":"500px"};
     `
     const ProjectContainer = styled.div`
     display: flex;
     justify-content: space-between;
     margin: ${props => props.isRoute&&"1em 0 0 0"};
+    @media (max-width: 360px) {
+        flex-direction: ${props => props.isRoute&&"column"};
+    }
     `
     const ProjectImg = styled.img`
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: ${props => props.isRoute?"fill":"cover"};
     `
     const ProjectTextDiv = styled.div`
     display: flex;
@@ -57,7 +61,7 @@ export default function Project(props) {
         return (
         <ProjectDiv isRoute={props.isRoute}>
             <ProjectImgContainer isRoute={props.isRoute}>
-                    {props.link?<NavLink to={`/projects/${props.link}`} onClick={props.changeCurrent}><ProjectImg src={props.img} alt=""/></NavLink>:<ProjectImg src={props.img} alt=""/>}
+                    {props.link?<NavLink to={`/projects/${props.link}`} onClick={props.changeCurrent}><ProjectImg src={props.img} alt="" isRoute={props.isRoute}/></NavLink>:<ProjectImg src={props.img} alt=""/>}
             </ProjectImgContainer>
             <ProjectContainer isRoute={props.isRoute}>
                 <ProjectTextDiv isRoute={props.isRoute}>
