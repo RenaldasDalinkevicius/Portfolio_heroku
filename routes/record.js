@@ -25,6 +25,7 @@ recordRoutes.route("/record/addcomment/:id").post(function (req, response) {
   let db_connect = getDb("portfolio")
   let myquery = { _id: ObjectId(req.params.id )}
   let myobj = {
+    _id: new ObjectId(),
     name: req.body.name,
     comment: req.body.comment,
     date: req.body.date
@@ -65,12 +66,13 @@ recordRoutes.route("/update/:id").post(function (req, response) {
         },
     }
 })
-recordRoutes.route("/:id").delete((req, response) => {
+recordRoutes.route("/record/delete/:id").post((req, response) => {
   let db_connect = getDb()
   let myquery = { _id: ObjectId( req.params.id )}
-  db_connect.collection("records").deleteOne(myquery, function (err, obj) {
+  db_connect.collection("projects").updateOne({_id: ObjectId("625e79f856f24e3398dde289")},{$pull: {"comments": myquery}
+  }, {new: true, multi:true}, function (err, obj) {
     if (err) throw err
-    console.log("1 document deleted")
+    console.log(myquery)
     response.json(obj)
   })
 })

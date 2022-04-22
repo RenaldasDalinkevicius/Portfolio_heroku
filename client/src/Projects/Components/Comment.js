@@ -3,6 +3,8 @@ import styled from "styled-components"
 import axios from "axios"
 import {nanoid} from "nanoid"
 import AddComment from "./AddComment"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faTrash } from "@fortawesome/free-solid-svg-icons"
 
     const Div = styled.div`
     background-color: ${props => props.theme.primary};
@@ -42,6 +44,14 @@ import AddComment from "./AddComment"
     margin: 0;
     font-size: 1rem;
     `
+    const Delete = styled(FontAwesomeIcon)`
+    color: ${props => props.theme.text};
+    font-size: 1rem;
+    cursor: pointer;
+    &:hover {
+        transform: scale(1.1);
+    }
+    `
 
 export default function Comment(props) {
     const [isLoading, setIsLoading] = useState(true)
@@ -56,6 +66,9 @@ export default function Comment(props) {
         <Wrapper>
             <Name>{`${data.name} :`}</Name>
             <Time>{data.date}</Time>
+            <Delete icon={faTrash} onClick={() => {
+                (axios.post(`/record/delete/${data._id}`).catch((err) => console.log(err)))
+            }}/>
         </Wrapper>
         <CommentText>{data.comment}</CommentText>
         </Div>
