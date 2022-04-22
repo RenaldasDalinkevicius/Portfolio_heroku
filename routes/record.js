@@ -66,13 +66,13 @@ recordRoutes.route("/update/:id").post(function (req, response) {
         },
     }
 })
-recordRoutes.route("/record/delete/:id").post((req, response) => {
+recordRoutes.route("/record/deleteComment/:id").post((req, response) => {
   let db_connect = getDb()
   let myquery = { _id: ObjectId( req.params.id )}
-  db_connect.collection("projects").updateOne({_id: ObjectId("625e79f856f24e3398dde289")},{$pull: {"comments": myquery}
+  let project = { _id: ObjectId( req.body.project)}
+  db_connect.collection("projects").updateOne(project,{$pull: {"comments": myquery}
   }, {new: true, multi:true}, function (err, obj) {
     if (err) throw err
-    console.log(myquery)
     response.json(obj)
   })
 })

@@ -67,7 +67,9 @@ export default function Comment(props) {
             <Name>{`${data.name} :`}</Name>
             <Time>{data.date}</Time>
             <Delete icon={faTrash} onClick={() => {
-                (axios.post(`/record/delete/${data._id}`).catch((err) => console.log(err)))
+                (axios.post(`/record/deleteComment/${data._id}`, {
+                    project: props.id,
+                }).catch((err) => console.log(err)))
             }}/>
         </Wrapper>
         <CommentText>{data.comment}</CommentText>
