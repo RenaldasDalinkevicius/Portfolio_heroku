@@ -14,7 +14,7 @@ import { NavLink} from "react-router-dom";
     display: flex;
     justify-content: space-between;
     margin: ${props => props.isRoute&&"1em 0 0 0"};
-    color: ${props => props.isRoute&&`${props.theme.primary}`};
+    color: ${props => props.theme.name==="light"?props.isRoute&&props.theme.primary:props.theme.text};
     @media (max-width: 360px) {
         flex-direction: ${props => props.isRoute&&"column"};
     }
@@ -30,6 +30,16 @@ import { NavLink} from "react-router-dom";
     ${props => !props.isRoute&&"justify-content: center"};
     margin-right: ${props => !props.isRoute&&"1em"};
     margin-bottom: ${props => props.isRoute&&"1em"};
+    border-bottom: ${props => props.isRoute&&props.theme.name==="gradient"?"3px solid":`3px solid ${props.theme.accent}`};
+    border-image: ${props => props.isRoute&&props.theme.name==="gradient"&&props.theme.accent} 1;
+    padding-bottom: ${props => props.isRoute&&"1em"};
+    @media (min-width: 360px) {
+        margin-right: ${props => props.isRoute&&"1em"};
+        border-bottom: ${props => props.isRoute&&"none"};
+        border-right: ${props => props.isRoute&&props.theme.name==="gradient"?"3px solid":`3px solid ${props.theme.accent}`};
+        padding-bottom: ${props => props.isRoute&&"none"};
+        padding-right: ${props => props.isRoute&&"1em"};
+    }
     `
     const ProjectTitle = styled.h4`
     margin: 0 0 1em 0;
