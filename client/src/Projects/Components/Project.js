@@ -14,6 +14,7 @@ import { NavLink} from "react-router-dom";
     display: flex;
     justify-content: space-between;
     margin: ${props => props.isRoute&&"1em 0 0 0"};
+    color: ${props => props.isRoute&&`${props.theme.primary}`};
     @media (max-width: 360px) {
         flex-direction: ${props => props.isRoute&&"column"};
     }
@@ -27,7 +28,8 @@ import { NavLink} from "react-router-dom";
     display: flex;
     flex-direction: column;
     ${props => !props.isRoute&&"justify-content: center"};
-    margin-right: 1em;
+    margin-right: ${props => !props.isRoute&&"1em"};
+    margin-bottom: ${props => props.isRoute&&"1em"};
     `
     const ProjectTitle = styled.h4`
     margin: 0 0 1em 0;
@@ -56,6 +58,7 @@ import { NavLink} from "react-router-dom";
     const ProjectAbout = styled.div`
     display: flex;
     flex-direction: column;
+    margin-bottom: ${props => props.isRoute&&"1em"};
     `
 export default function Project(props) {
         return (
@@ -71,7 +74,7 @@ export default function Project(props) {
                 {!props.isRoute?<ProjectLinks>
                     <Link href={props.github}>Github</Link>
                     <Link href={props.live}>Live</Link>
-                </ProjectLinks>:<ProjectAbout><ProjectText isRoute={props.isRoute}>{props.about}</ProjectText><ProjectText>{props.aboutOther}</ProjectText></ProjectAbout>}
+                </ProjectLinks>:<ProjectAbout isRoute={props.isRoute}><ProjectText isRoute={props.isRoute}>{props.about}</ProjectText><ProjectText>{props.aboutOther}</ProjectText></ProjectAbout>}
             </ProjectContainer>
         </ProjectDiv>
     )

@@ -93,10 +93,10 @@ export default function AddComment(props) {
         onSubmit={(values, { setSubmitting, resetForm }) => {
             setTimeout(() => {
                 alert("Submitted")
-                //update according to record
                 axios.post(`/record/addcomment/${props.id}`, {
                         name: values.name,
-                        comment: values.comment
+                        comment: values.comment,
+                        date: new Date().toLocaleString()
                 })
                 .catch((err) => console.log(err))
                 resetForm({values: ""})
@@ -113,7 +113,8 @@ export default function AddComment(props) {
                 <TextAreaF 
                 as="textarea"
                 name="comment"
-                label="Comment"                    placeholder="Comment"/>
+                label="Comment"
+                placeholder="Comment"/>
                 <Submit type="submit">Submit</Submit>
             </StyledForm>
         </Formik>

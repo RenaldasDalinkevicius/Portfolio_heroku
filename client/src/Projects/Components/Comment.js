@@ -6,14 +6,15 @@ import AddComment from "./AddComment"
 
     const Div = styled.div`
     background-color: ${props => props.theme.primary};
-    `
-    const Name = styled.h2`
-    color: ${props => props.theme.name==="gradient"?null:props.theme.accent};
-    background: ${props => props.theme.name==="gradient"&&props.theme.accent};
-    -webkit-background-clip: ${props => props.theme.name==="gradient"&&"text"};
-    -webkit-text-fill-color: ${props => props.theme.name==="gradient"&&"transparent"};
+    border: ${props => props.theme.name==="gradient"?"3px solid":`3px solid ${props.theme.accent}`};
+    border-image: ${props => props.theme.name==="gradient"&&props.theme.accent} 1;
     margin: 0.5em 0;
-    font-size: 2rem;
+
+    `
+    const Name = styled.h3`
+    color: ${props => props.theme.text};
+    font-size: 1rem;
+    margin: 0;
     font-weight: 600;
     `
     const CommentText = styled.p`
@@ -23,12 +24,23 @@ import AddComment from "./AddComment"
     height: 100px;
     font-size: 1rem;
     font-weight: 300;
-    color: ${props => props.theme.primary};
-    background-color: ${props => props.theme.text};
+    color: ${props => props.theme.text};
     `
     const MainDiv = styled.div`
     width: 80%;
     margin: 0 auto;
+    `
+    const Wrapper = styled.div`
+    padding: 1em;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid ${props => props.theme.text};
+    border-width: 80%;
+    `
+    const Time = styled.p`
+    color: ${props => props.theme.text};
+    margin: 0;
+    font-size: 1rem;
     `
 
 export default function Comment(props) {
@@ -41,7 +53,10 @@ export default function Comment(props) {
         }))
     }, [])
     const CommentArr = !isLoading?props.isComments&&data.map(data => {return <Div key={nanoid()}>
-        <Name>{`${data.name} :`}</Name>
+        <Wrapper>
+            <Name>{`${data.name} :`}</Name>
+            <Time>{data.date}</Time>
+        </Wrapper>
         <CommentText>{data.comment}</CommentText>
         </Div>
     }):"Loading"

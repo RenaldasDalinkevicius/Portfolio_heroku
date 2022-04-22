@@ -29,12 +29,16 @@ import { faX } from "@fortawesome/free-solid-svg-icons"
     width: 32px;
     height: 32px;
     padding: 4px;
-    color: ${props => props.theme.text};
+    color: ${props => props.theme.name==="light"?`${props.theme.primary}`:`${props.theme.text}`};
     `
     const Wrapper = styled.div`
     width: 100%;
     display: flex;
     justify-content: flex-end;
+    position: fixed;
+    top: 0;
+    right: 0;
+    margin-top: 48px;
     `
 
 export default function Projects() {
