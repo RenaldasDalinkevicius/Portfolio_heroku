@@ -56,8 +56,11 @@ export default function Projects() {
         let path = "/projects"
         navigate(path)
     }
+    function length(arr) {
+        return arr.length
+    }
     const ProjectElement = !isLoading?data.map(data => {
-        return <Project title={data.title} text={data.text} github={data.github} live={data.live} key={data._id} img={data.img} link={data._id}/>
+        return <Project title={data.title} text={data.text} github={data.github} live={data.live} key={data._id} img={data.img} link={data._id} length={length(data.comments)}/>
     }):"Loading"
     const RouteElement = !isLoading&&data.map(data => {
         return <Route path={`${data._id}`} key={data._id} element={<ProjectFixed><Wrapper><Exit icon={faX} onClick={() => routeChange()}/></Wrapper><Project title={data.title} text={data.text} img={data.img} isRoute={isRoute} about={data.about} aboutOther={data.aboutOther}/><Comment id={data._id} isComments={data.comments}/></ProjectFixed>}/>

@@ -70,16 +70,22 @@ import { NavLink} from "react-router-dom";
     flex-direction: column;
     margin-bottom: ${props => props.isRoute&&"1em"};
     `
+    const ProjectComments = styled(NavLink)`
+    font-size: 1.125rem;
+    font-weight: 600;
+    `
+
 export default function Project(props) {
         return (
         <ProjectDiv isRoute={props.isRoute}>
             <ProjectImgContainer isRoute={props.isRoute}>
-                    {props.link?<NavLink to={`/projects/${props.link}`} onClick={props.changeCurrent}><ProjectImg src={props.img} alt="" isRoute={props.isRoute}/></NavLink>:<ProjectImg src={props.img} alt=""/>}
+                    {props.link?<NavLink to={`/projects/${props.link}`}><ProjectImg src={props.img} alt="" isRoute={props.isRoute}/></NavLink>:<ProjectImg src={props.img} alt=""/>}
             </ProjectImgContainer>
             <ProjectContainer isRoute={props.isRoute}>
                 <ProjectTextDiv isRoute={props.isRoute}>
                     <ProjectTitle>{props.title}</ProjectTitle>
                     <ProjectText>{props.text}</ProjectText>
+                    {!props.isRoute&&<ProjectComments to={`/projects/${props.link}`}>{`Comments(${props.length})`}</ProjectComments>}
                 </ProjectTextDiv>
                 {!props.isRoute?<ProjectLinks>
                     <Link href={props.github}>Github</Link>
