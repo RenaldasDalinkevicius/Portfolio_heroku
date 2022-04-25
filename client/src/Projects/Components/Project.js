@@ -30,14 +30,14 @@ import { NavLink} from "react-router-dom";
     ${props => !props.isRoute&&"justify-content: center"};
     margin-right: ${props => !props.isRoute&&"1em"};
     margin-bottom: ${props => props.isRoute&&"1em"};
-    border-bottom: ${props => props.isRoute&&props.theme.name==="gradient"?"3px solid":`3px solid ${props.theme.accent}`};
-    border-image: ${props => props.isRoute&&props.theme.name==="gradient"&&props.theme.accent} 1;
+    ${props => props.isRoute&&`border-bottom:${props.theme.name==="gradient"?`3px solid`:`3px solid ${props.theme.accent}`}`};
+    border-image: ${props => props.isRoute&&props.theme.name==="gradient"&&props.theme.accent}1;
     padding-bottom: ${props => props.isRoute&&"1em"};
     @media (min-width: 360px) {
         margin-right: ${props => props.isRoute&&"1em"};
         border-bottom: ${props => props.isRoute&&"none"};
-        border-right: ${props => props.isRoute&&props.theme.name==="gradient"?"3px solid":`3px solid ${props.theme.accent}`};
-        padding-bottom: ${props => props.isRoute&&"none"};
+        ${props => props.isRoute&&`border-right:${props.theme.name==="gradient"?`3px solid`:`3px solid ${props.theme.accent}`}`};
+        padding-bottom: ${props => props.isRoute&&"0"};
         padding-right: ${props => props.isRoute&&"1em"};
     }
     `
