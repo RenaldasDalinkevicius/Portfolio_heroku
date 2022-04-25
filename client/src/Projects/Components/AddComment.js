@@ -41,6 +41,7 @@ import axios from "axios"
     `
     const Wrapper = styled.div`
     width: 100%;
+    display: flex;
     `
     const Submit = styled.button`
     background: ${props => props.theme.accent};
@@ -101,6 +102,7 @@ export default function AddComment(props) {
                 .catch((err) => console.log(err))
                 resetForm({values: ""})
                 setSubmitting(false)
+                props.update(true)
             }, 400)
           }}>
             <StyledForm>

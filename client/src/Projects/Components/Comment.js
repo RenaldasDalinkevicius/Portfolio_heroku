@@ -55,12 +55,19 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons"
 
 export default function Comment(props) {
     const [isLoading, setIsLoading] = useState(true)
+    const [update, setUpdate] = useState(false)
     const [data, setData] = useState()
     useEffect(() => {
-        (axios.get(`/record/getcomment/${props.id}`).then((res) => {
-            setData(res.data.comments)
-            setIsLoading(false)
-        }))
+        if (update) {
+            (axios.get(`/record/getcomment/${props.id}`).then((res) => {
+                setData(res.data.comments)
+                setIsLoading(false)
+                setUpdate(false)
+            }))  
+        }
+    }, [update])
+    useEffect(() => {
+        setUpdate(true)
     }, [])
     const CommentArr = !isLoading?props.isComments&&data.map(data => {return <Div key={nanoid()}>
         <Wrapper>
@@ -70,6 +77,7 @@ export default function Comment(props) {
                 (axios.post(`/record/deleteComment/${data._id}`, {
                     project: props.id,
                 }).catch((err) => console.log(err)))
+                setUpdate(true)
             }}/>
         </Wrapper>
         <CommentText>{data.comment}</CommentText>
@@ -77,7 +85,7 @@ export default function Comment(props) {
     }):"Loading"
     return (
         <MainDiv>
-            <AddComment id={props.id}/>
+            <AddComment id={props.id} update={setUpdate}/>
             {CommentArr}
         </MainDiv>
     )
