@@ -16,8 +16,9 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons"
     const Name = styled.h3`
     color: ${props => props.theme.text};
     font-size: 1rem;
-    margin: 0;
+    margin: 0 auto 0 0;
     font-weight: 600;
+    word-wrap: anywhere;
     `
     const CommentText = styled.p`
     padding: 1em;
@@ -27,17 +28,19 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons"
     font-size: 1rem;
     font-weight: 300;
     color: ${props => props.theme.text};
+    word-wrap: anywhere;
+    overflow: auto;
     `
     const MainDiv = styled.div`
     width: 80%;
     margin: 0 auto;
     `
     const Wrapper = styled.div`
-    padding: 1em;
+    padding: 1em 0;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     border-bottom: 1px solid ${props => props.theme.text};
-    border-width: 80%;
+    margin: 0 1em;
     `
     const Time = styled.p`
     color: ${props => props.theme.text};
@@ -47,6 +50,7 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons"
     const Delete = styled(FontAwesomeIcon)`
     color: ${props => props.theme.text};
     font-size: 1rem;
+    margin: 0 0 0 1em;
     cursor: pointer;
     &:hover {
         transform: scale(1.1);

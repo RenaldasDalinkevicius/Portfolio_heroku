@@ -71,7 +71,7 @@ recordRoutes.route("/record/deleteComment/:id").post((req, response) => {
   let myquery = { _id: ObjectId( req.params.id )}
   let project = { _id: ObjectId( req.body.project)}
   db_connect.collection("projects").updateOne(project,{$pull: {"comments": myquery}
-  }, {new: true, multi:true}, function (err, obj) {
+  }, {new: true}, function (err, obj) {
     if (err) throw err
     response.json(obj)
   })
