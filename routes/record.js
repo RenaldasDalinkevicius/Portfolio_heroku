@@ -2,6 +2,8 @@ import express from "express"
 import { getDb } from "../db/conn.js"
 import { ObjectId } from "mongodb"
 import path from "path"
+import {User} from "../models/userModel.js"
+import {registrationValidation} from "../validation/validate.js"
 
 export const recordRoutes = express.Router()
 recordRoutes.route("/record").get(function (req, res) {
@@ -54,17 +56,29 @@ recordRoutes.route("/record/add").post(function (req, response) {
     response.json(res)
   })
 })
-recordRoutes.route("/update/:id").post(function (req, response) {
-    let db_connect = getDb()
-    let myquery = { _id: ObjectId( req.params.id )}
-    let newvalues = {    
-        $set: {      
-        firstName: req.body.firstName,     
-        lastName: req.body.lastName,
-        email: req.body.email,
-        about: req.body.about 
-        },
-    }
+recordRoutes.route("/register").post((req, response, next) => {
+  const {error} = registrationValidation(req.body)
+  if (error) {
+    const err = new Error(error.details[0].message)
+    err.status = 400
+    next(err)
+  }
+  const {firstName, lastName, email, password} = req.body
+  const userExists = User.findOne({email})
+  if (userExists===true) {
+    const err = new Error("User already exists")
+    err.status = 400
+    next(err)
+  }
+  const user = User.create({
+    firstName,
+    lastName,
+    email,
+    password
+  })
+  let db_connect = getDb()
+  db_connect.collection("users").insertOne(user)
+  response.json({message: "New user created"})
 })
 recordRoutes.route("/record/deleteComment/:id").post((req, response) => {
   let db_connect = getDb()

@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useContext} from "react";
 import styled, {ThemeContext} from "styled-components";
 import { NavLink as Link } from "react-router-dom";
-import { faLightbulb, faHouse, faFile } from "@fortawesome/free-solid-svg-icons";
+import { faLightbulb, faHouse, faRightToBracket} from "@fortawesome/free-solid-svg-icons";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {Spin as Hamburger} from "hamburger-react";
@@ -102,8 +102,9 @@ export default function NavBar(props) {
         <NavBarDiv toggle={navBar}>
             <Hamburger toggled={navBar} toggle={setNavBar} color={themeContext.name==="gradient"?themeContext.text:themeContext.accent}/>
             <Wrapper toggle={navBar}>
-                <NavLink to="/"><FontAwesomeIconF icon={faHouse}/>{navBar?"main":null}</NavLink>
+                <NavLink to="/"><FontAwesomeIconF icon={faHouse}/>{navBar&&"main"}</NavLink>
                 <NavLink to="/projects"><FontAwesomeIconF icon={faGithub}/>{navBar&&"Projects"}</NavLink>
+                <NavLink to="/login"><FontAwesomeIconF icon={faRightToBracket}/>{navBar&&"Login"}</NavLink>
                 <ThemeChanger>
                     <ThemeToggler onClick={() => setThemeChanger(themeChanger?false:true)}>
                         <FontAwesomeIconF icon={faLightbulb}/>{navBar&&"Theme"}
