@@ -5,7 +5,8 @@ import { faLightbulb, faHouse, faRightToBracket, faUser} from "@fortawesome/free
 import { faGithub } from "@fortawesome/free-brands-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import {Spin as Hamburger} from "hamburger-react"
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
+import { logout } from "./stateSlices/loginSlice"
 
     const NavBarDiv = styled.nav`
     display: flex;
@@ -85,11 +86,32 @@ import { useSelector } from "react-redux"
         display: ${props => props.toggle?"flex":"none"};
     }
     `
+    const User = styled.button`
+    font-weight: 900;
+    text-decoration: none;
+    font-size: 1.5rem;
+    padding: .50em .25em;
+    justify-content: space-between;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    &: hover, &:focus {
+        color: ${props => props.theme.primary};
+        background: ${props => props.theme.text};
+    }
+    @media (max-width: 800px) {
+        font-size: 1.123rem;
+    }
+    `
+
 export default function NavBar(props) {
     const themeContext = useContext(ThemeContext)
     const [navBar, setNavBar] = useState(false)
     const [themeChanger, setThemeChanger] = useState(false)
     const { loggedInUser } = useSelector(state => state.login)
+    const dispatch = useDispatch()
+
     useEffect(() => {
         if (themeChanger) {
             setNavBar(true)
@@ -100,13 +122,17 @@ export default function NavBar(props) {
             setThemeChanger(false)
         }
     }, [navBar])
+    const logoutHandler = () => {
+        dispatch(logout())
+        localStorage.removeItem("loggedInUser")
+    }
     return (
         <NavBarDiv toggle={navBar}>
             <Hamburger toggled={navBar} toggle={setNavBar} color={themeContext.name==="gradient"?themeContext.text:themeContext.accent}/>
             <Wrapper toggle={navBar}>
                 <NavLink to="/"><FontAwesomeIconF icon={faHouse}/>{navBar&&"main"}</NavLink>
                 <NavLink to="/projects"><FontAwesomeIconF icon={faGithub}/>{navBar&&"Projects"}</NavLink>
-                {loggedInUser?<NavLink to="/login"><FontAwesomeIconF icon={faRightToBracket}/>{navBar&&"Login"}</NavLink>:<NavLink to="/projects"><FontAwesomeIconF icon={faUser}/>{navBar&&`${loggedInUser.firstName}`}</NavLink>}
+                {!loggedInUser?<NavLink to="/login"><FontAwesomeIconF icon={faRightToBracket}/>{navBar&&"Login"}</NavLink>:<User onClick={() => logoutHandler()}><FontAwesomeIconF icon={faUser}/>{navBar&&`${loggedInUser.firstName}`}</User>}
                 <ThemeChanger>
                     <ThemeToggler onClick={() => setThemeChanger(themeChanger?false:true)}>
                         <FontAwesomeIconF icon={faLightbulb}/>{navBar&&"Theme"}
@@ -119,4 +145,3 @@ export default function NavBar(props) {
         </NavBarDiv>
     )
 }
-//<NavLink to="resume"><FontAwesomeIconF icon={faFile}/>{navBar&&"Resume"}</NavLink>

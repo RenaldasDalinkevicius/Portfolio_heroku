@@ -4,6 +4,7 @@ import { ObjectId } from "mongodb"
 import path from "path"
 import {registrationValidation, loginValidation} from "../validation/validate.js"
 import bcryptjs from "bcryptjs"
+import { generateToken } from "../utils/generateToken.js"
 
 export const recordRoutes = express.Router()
 recordRoutes.route("/record").get(function (req, res) {
