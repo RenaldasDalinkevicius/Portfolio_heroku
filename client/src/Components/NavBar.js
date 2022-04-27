@@ -87,6 +87,8 @@ import { logout } from "./stateSlices/loginSlice"
     }
     `
     const User = styled.button`
+    color: ${props => props.theme.name==="gradient"?props.theme.text:props.theme.accent};
+    background-color: transparent;
     font-weight: 900;
     text-decoration: none;
     font-size: 1.5rem;
@@ -94,6 +96,7 @@ import { logout } from "./stateSlices/loginSlice"
     justify-content: space-between;
     text-transform: uppercase;
     border: none;
+    font-family: inherit;
     cursor: pointer;
     display: flex;
     &: hover, &:focus {

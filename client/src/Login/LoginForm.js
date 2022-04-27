@@ -1,4 +1,4 @@
-import React from "react"
+import React, {useEffect} from "react"
 import styled from "styled-components"
 import { Link } from "react-router-dom"
 import { Formik, Form, useField } from "formik"
@@ -12,10 +12,22 @@ import { useNavigate } from "react-router-dom"
     flex-direction: column;
     `
     const FormLabel = styled.label`
+    text-align: center;
+    font-size: 1.25rem;
+    margin: 0 0 1em 0;
+    font-weight: 600;
     `
     const FormInput = styled.input`
+    font-size: 1.25rem;
+    border: none;
+    padding: 1em;
     `
-    const FormError = styled.div`
+    const FormError = styled.h4`
+    color: red;
+    font-weight: 300;
+    margin: 0;
+    text-align: center;
+    font-size: 1.125rem;
     `
     const StyledForm = styled(Form)`
     min-height: 100vh;
@@ -31,14 +43,29 @@ import { useNavigate } from "react-router-dom"
     align-items: center;
     `
     const Header = styled.h2`
-    margin: 1em 0;
-
+    margin: 0 0 1em 0;
+    text-transform: uppercase;
+    background: ${props => props.theme.name==="gradient"&&props.theme.accent};
+    -webkit-background-clip: ${props => props.theme.name==="gradient"&&"text"};
+    -webkit-text-fill-color: ${props => props.theme.name==="gradient"&&"transparent"};
     `
     const Submit = styled.button`
+    border: none;
+    padding: 1em;
+    cursor: pointer;
+    font-familiy: inherit;
+    font-weight: 600;
+    font-size: 1.25rem;
+    text-transform: uppercase;
+    margin: 1em 0;
     `
     const Register = styled.p`
+    margin: 0;
+    font-size: 1.25rem;
     `
     const LinkRegister = styled(Link)`
+    font-weight: 600;
+
     `
 
 export default function LoginForm() {

@@ -12,7 +12,8 @@ import CV from "../../Pdf/RenaldasCV.pdf"
     `
     const IntroductionTextDiv = styled.div`
     align-self: center;
-    margin: 0 auto;`
+    margin: 0 auto;
+    `
     const IntrodunctionHeader = styled.h1`
     color: ${props => props.theme.name==="gradient"?null:props.theme.name==="light"?props.theme.primary:props.theme.accent};
     background: ${props => props.theme.name==="gradient"&&props.theme.accent};
