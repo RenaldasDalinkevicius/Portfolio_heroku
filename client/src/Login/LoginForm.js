@@ -3,6 +3,9 @@ import styled from "styled-components"
 import { Link } from "react-router-dom"
 import { Formik, Form, useField } from "formik"
 import * as Yup from "yup"
+import { loginUser } from "../Components/stateSlices/loginSlice"
+import { useSelector, useDispatch } from "react-redux"
+import { useNavigate } from "react-router-dom"
 
     const Wrapper = styled.div`
     display: flex;
@@ -39,6 +42,9 @@ import * as Yup from "yup"
     `
 
 export default function LoginForm() {
+    const dispatch = useDispatch()
+    const {status, loggedInUser, error} = useSelector(state => state.login)
+
     const TextInput = ({label, ...props}) => {
         const [field, meta] = useField(props)
         return (
@@ -51,6 +57,11 @@ export default function LoginForm() {
             </Wrapper>
         )
     }
+    const navigate = useNavigate()
+    if (loggedInUser) {
+        localStorage.setItem("loggedInUser", JSON.stringify(loggedInUser))
+        navigate("/")
+    }
     return (
         <Formik initialValues={{email:"", password:""}}
         validationSchema={Yup.object({
@@ -60,8 +71,9 @@ export default function LoginForm() {
             password: Yup.string()
             .required("Please enter your password")
         })}
-        onSubmit={(values, {setSubmitting, resetForm}) => {
-            console.log(values)
+        onSubmit={(values, {setSubmitting}) => {
+            dispatch(loginUser(values))
+            setSubmitting(false)
         }}>
             <StyledForm>
                 <MainWrapper>
@@ -76,7 +88,7 @@ export default function LoginForm() {
                     name="password"
                     type="text"
                     placeholder="Password"/>
-                    <Submit type="submit">Login</Submit>
+                    <Submit type="submit">{status === "loading"?"Loading...":"Login"}</Submit>
                     <Register>Don't have an account?{" "}<LinkRegister to="/register">Register</LinkRegister></Register>
                 </MainWrapper>
             </StyledForm>

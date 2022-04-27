@@ -1,10 +1,11 @@
-import React, {useState, useEffect, useContext} from "react";
-import styled, {ThemeContext} from "styled-components";
-import { NavLink as Link } from "react-router-dom";
-import { faLightbulb, faHouse, faRightToBracket} from "@fortawesome/free-solid-svg-icons";
-import { faGithub } from "@fortawesome/free-brands-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {Spin as Hamburger} from "hamburger-react";
+import React, {useState, useEffect, useContext} from "react"
+import styled, {ThemeContext} from "styled-components"
+import { NavLink as Link } from "react-router-dom"
+import { faLightbulb, faHouse, faRightToBracket, faUser} from "@fortawesome/free-solid-svg-icons"
+import { faGithub } from "@fortawesome/free-brands-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import {Spin as Hamburger} from "hamburger-react"
+import { useSelector } from "react-redux"
 
     const NavBarDiv = styled.nav`
     display: flex;
@@ -88,6 +89,7 @@ export default function NavBar(props) {
     const themeContext = useContext(ThemeContext)
     const [navBar, setNavBar] = useState(false)
     const [themeChanger, setThemeChanger] = useState(false)
+    const { loggedInUser } = useSelector(state => state.login)
     useEffect(() => {
         if (themeChanger) {
             setNavBar(true)
@@ -104,7 +106,7 @@ export default function NavBar(props) {
             <Wrapper toggle={navBar}>
                 <NavLink to="/"><FontAwesomeIconF icon={faHouse}/>{navBar&&"main"}</NavLink>
                 <NavLink to="/projects"><FontAwesomeIconF icon={faGithub}/>{navBar&&"Projects"}</NavLink>
-                <NavLink to="/login"><FontAwesomeIconF icon={faRightToBracket}/>{navBar&&"Login"}</NavLink>
+                {loggedInUser?<NavLink to="/login"><FontAwesomeIconF icon={faRightToBracket}/>{navBar&&"Login"}</NavLink>:<NavLink to="/projects"><FontAwesomeIconF icon={faUser}/>{navBar&&`${loggedInUser.firstName}`}</NavLink>}
                 <ThemeChanger>
                     <ThemeToggler onClick={() => setThemeChanger(themeChanger?false:true)}>
                         <FontAwesomeIconF icon={faLightbulb}/>{navBar&&"Theme"}

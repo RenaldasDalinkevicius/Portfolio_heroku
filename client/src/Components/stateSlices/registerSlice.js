@@ -12,7 +12,7 @@ export const registerUser = createAsyncThunk(
     async (registrationFormData, {rejectWithValue}) => {
         try {
             const {data} = await axios.post(
-                "/register",
+                "/record/register",
                 registrationFormData
             )
             return data

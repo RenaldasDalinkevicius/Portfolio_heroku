@@ -2,8 +2,8 @@ import express from "express"
 import { getDb } from "../db/conn.js"
 import { ObjectId } from "mongodb"
 import path from "path"
-import {User} from "../models/userModel.js"
-import {registrationValidation} from "../validation/validate.js"
+import {registrationValidation, loginValidation} from "../validation/validate.js"
+import bcryptjs from "bcryptjs"
 
 export const recordRoutes = express.Router()
 recordRoutes.route("/record").get(function (req, res) {
@@ -46,17 +46,42 @@ recordRoutes.route("/record/addcomment/:id").post(function (req, response) {
 recordRoutes.route("/record/add").post(function (req, response) {
   let db_connect = getDb("portfolio")
   let myobj = {
+    _id: new ObjectId(),
     firstName: req.body.firstName,
     lastName: req.body.lastName,
     email: req.body.email,
     about: req.body.about
   }
-  db_connect.collection("form").insertOne(myobj, function (err, res) {
+  db_connect.collection("users").insertOne(myobj, function (err, res) {
     if (err) throw err
     response.json(res)
   })
 })
-recordRoutes.route("/register").post((req, response, next) => {
+recordRoutes.route("/record/login").post(async (req, response, next) => {
+  const {error} = loginValidation(req.body)
+  if (error) {
+    const err = new Error(error.details[0].message)
+    err.status = 400
+    next(err)
+  }
+  const {email, password} = req.body
+  let db_connect = getDb("portfolio")
+  const user = await db_connect.collection("users").findOne({email})
+  async function matchPassword(p) {
+    return await bcryptjs.compare(p, user.password)
+  }
+  if (user && await matchPassword(password)) {
+    response.json({
+      firstName: user.firstName,
+      token: generateToken(user._id)
+    })
+  } else {
+    const err = new Error("Invalid email or password")
+    err.status = 401
+    next(err)
+  }
+})
+recordRoutes.route("/record/register").post(async (req, response, next) => {
   const {error} = registrationValidation(req.body)
   if (error) {
     const err = new Error(error.details[0].message)
@@ -64,19 +89,22 @@ recordRoutes.route("/register").post((req, response, next) => {
     next(err)
   }
   const {firstName, lastName, email, password} = req.body
+  /*
   const userExists = User.findOne({email})
   if (userExists===true) {
     const err = new Error("User already exists")
     err.status = 400
     next(err)
   }
-  const user = User.create({
-    firstName,
-    lastName,
-    email,
-    password
-  })
-  let db_connect = getDb()
+  */
+  const salt = await bcryptjs.genSalt(10)
+  const user = {
+    firstName: firstName,
+    lastName: lastName,
+    email: email,
+    password: await bcryptjs.hash(password, salt)
+  }
+  let db_connect = await getDb()
   db_connect.collection("users").insertOne(user)
   response.json({message: "New user created"})
 })
