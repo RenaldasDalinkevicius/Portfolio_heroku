@@ -55,8 +55,11 @@ import { useNavigate } from "react-router-dom"
     font-familiy: inherit;
     font-weight: 600;
     font-size: 1.25rem;
-    text-transform: uppercase;
     margin: 1em 0;
+    color: ${props => props.theme.text};
+    background: ${props => props.theme.name==="gradient"&&props.theme.accent};
+    -webkit-background-clip: ${props => props.theme.name==="gradient"&&"text"};
+    -webkit-text-fill-color: ${props => props.theme.name==="gradient"&&"transparent"};
     `
     const Error = styled.p`
     font-size:1.25rem;
@@ -126,9 +129,9 @@ export default function RegisterForm() {
                     <TextInput
                     label="Password"
                     name="password"
-                    type="text"
+                    type="password"
                     placeholder="Password"/>
-                    <Submit type="submit">{status === "loading"?"Loading...":"Register"}</Submit>
+                    <Submit type="submit">{status === "loading"?"Loading...":"Sign up"}</Submit>
                 </MainWrapper>
             </StyledForm>
         </Formik>
