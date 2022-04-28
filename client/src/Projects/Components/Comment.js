@@ -5,6 +5,7 @@ import {nanoid} from "nanoid"
 import AddComment from "./AddComment"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faTrash } from "@fortawesome/free-solid-svg-icons"
+import { useSelector } from "react-redux"
 
     const Div = styled.div`
     background-color: ${props => props.theme.primary};
@@ -61,6 +62,7 @@ export default function Comment(props) {
     const [isLoading, setIsLoading] = useState(true)
     const [update, setUpdate] = useState(false)
     const [data, setData] = useState()
+    const { loggedInUser } = useSelector(state => state.login)
     useEffect(() => {
         if (update) {
             (axios.get(`/record/getcomment/${props.id}`).then((res) => {
@@ -77,19 +79,19 @@ export default function Comment(props) {
         <Wrapper>
             <Name>{`${data.name} :`}</Name>
             <Time>{data.date}</Time>
-            <Delete icon={faTrash} onClick={() => {
+            {loggedInUser&&loggedInUser.email===data.email?<Delete icon={faTrash} onClick={() => {
                 (axios.post(`/record/deleteComment/${data._id}`, {
                     project: props.id,
                 }).catch((err) => console.log(err)))
                 setUpdate(true)
-            }}/>
+            }}/>:null}
         </Wrapper>
         <CommentText>{data.comment}</CommentText>
         </Div>
     }):"Loading"
     return (
         <MainDiv>
-            <AddComment id={props.id} update={setUpdate}/>
+            {loggedInUser&&<AddComment id={props.id} update={setUpdate}/>}
             {CommentArr}
         </MainDiv>
     )

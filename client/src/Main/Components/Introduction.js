@@ -1,6 +1,7 @@
 import React from "react"
 import styled from "styled-components"
 import CV from "../../Pdf/RenaldasCV.pdf"
+import { useSelector } from "react-redux"
 
     const IntroductionDiv = styled.div`
     position: absolute;
@@ -44,11 +45,12 @@ import CV from "../../Pdf/RenaldasCV.pdf"
     `
 
 export default function Introduction() {
+    const { loggedInUser} = useSelector(state => state.login)
     return (
         <IntroductionDiv>
             <IntroductionTextDiv>
-                <IntrodunctionHeader>Hi. My name is Renaldas</IntrodunctionHeader>
-                <IntroductionText>And this is my portfolio</IntroductionText>
+                <IntrodunctionHeader>{loggedInUser?`Welcome back, ${loggedInUser.firstName}`:"Hi. My name is Renaldas"}</IntrodunctionHeader>
+                <IntroductionText>{loggedInUser?"Enjoy your stay":"And this is my portfolio"}</IntroductionText>
                 <CvButton onClick={() => window.open(CV, "_blank")} >CV download</CvButton>
             </IntroductionTextDiv>
     </IntroductionDiv>

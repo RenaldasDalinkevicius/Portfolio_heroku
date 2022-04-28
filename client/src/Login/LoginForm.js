@@ -1,4 +1,4 @@
-import React, {useEffect} from "react"
+import React, { useEffect } from "react"
 import styled from "styled-components"
 import { Link } from "react-router-dom"
 import { Formik, Form, useField } from "formik"
@@ -65,13 +65,16 @@ import { useNavigate } from "react-router-dom"
     `
     const LinkRegister = styled(Link)`
     font-weight: 600;
-
+    `
+    const Error = styled.p`
+    font-size:1.25rem;
+    color: red;
+    font-weight: 600;
     `
 
 export default function LoginForm() {
     const dispatch = useDispatch()
     const {status, loggedInUser, error} = useSelector(state => state.login)
-
     const TextInput = ({label, ...props}) => {
         const [field, meta] = useField(props)
         return (
@@ -85,10 +88,12 @@ export default function LoginForm() {
         )
     }
     const navigate = useNavigate()
-    if (loggedInUser) {
-        localStorage.setItem("loggedInUser", JSON.stringify(loggedInUser))
-        navigate("/")
-    }
+    useEffect(() => {
+        if (loggedInUser) {
+            localStorage.setItem("loggedInUser", JSON.stringify(loggedInUser))
+            navigate("/")
+        }
+    }, [loggedInUser])
     return (
         <Formik initialValues={{email:"", password:""}}
         validationSchema={Yup.object({
@@ -105,6 +110,7 @@ export default function LoginForm() {
             <StyledForm>
                 <MainWrapper>
                     <Header>Login</Header>
+                    {error?<Error>{error}</Error>:null}
                     <TextInput
                     label="Email adress"
                     name="email"

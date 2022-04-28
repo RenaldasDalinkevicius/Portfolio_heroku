@@ -1,4 +1,4 @@
-import React from "react"
+import React, {useEffect} from "react"
 import styled from "styled-components"
 import { Formik, Form, useField } from "formik"
 import * as Yup from "yup"
@@ -58,7 +58,10 @@ import { useNavigate } from "react-router-dom"
     text-transform: uppercase;
     margin: 1em 0;
     `
-    const Error = styled.div`
+    const Error = styled.p`
+    font-size:1.25rem;
+    color: red;
+    font-weight: 600;
     `
 
 export default function RegisterForm() {
@@ -77,9 +80,11 @@ export default function RegisterForm() {
         )
     }
     const navigate = useNavigate()
-    if (userRegistered) {
-        navigate("/login")
-    }
+    useEffect(() => {
+        if (userRegistered) {
+            navigate("/")
+        }
+    }, [userRegistered])
     return (
         <Formik initialValues={{firstName:"", lastName:"", email:"", password:""}}
         validationSchema={Yup.object({

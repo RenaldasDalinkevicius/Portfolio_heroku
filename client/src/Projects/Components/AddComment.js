@@ -3,6 +3,7 @@ import styled from "styled-components"
 import { Formik, useField, Form, Field } from "formik"
 import * as Yup from "yup"
 import axios from "axios"
+import { useSelector } from "react-redux"
 
     const StyledForm = styled(Form)`
     background-color: ${props => props.theme.primary};
@@ -61,6 +62,8 @@ import axios from "axios"
     `
 
 export default function AddComment(props) {
+    const { loggedInUser } = useSelector(state => state.login)
+    /* Replaced by user auth */
     const TextInput = ({label, ...props}) => {
         const [field, meta] = useField(props)
         return (
@@ -82,11 +85,8 @@ export default function AddComment(props) {
         )
     }
     return (
-        <Formik initialValues={{name: "", comment: ""}}
+        <Formik initialValues={{comment: ""}}
         validationSchema={Yup.object({
-            name: Yup.string()
-            .max(20, ">20")
-            .required("*"),
             comment: Yup.string()
             .max(200, ">200")
             .required("*")
@@ -95,7 +95,8 @@ export default function AddComment(props) {
             setTimeout(() => {
                 alert("Submitted")
                 axios.post(`/record/addcomment/${props.id}`, {
-                        name: values.name,
+                        name: `${loggedInUser.firstName} ${loggedInUser.lastName}`,
+                        email: loggedInUser.email,
                         comment: values.comment,
                         date: new Date().toLocaleString()
                 })
@@ -107,11 +108,6 @@ export default function AddComment(props) {
           }}>
             <StyledForm>
                 <Header>Comment:</Header>
-                <TextInput
-                label="Name"
-                name="name"
-                type="text"
-                placeholder="Name"/>
                 <TextAreaF 
                 as="textarea"
                 name="comment"

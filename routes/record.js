@@ -5,6 +5,7 @@ import path from "path"
 import {registrationValidation, loginValidation} from "../validation/validate.js"
 import bcryptjs from "bcryptjs"
 import { generateToken } from "../utils/generateToken.js"
+import expressAsyncHandler from "express-async-handler"
 
 export const recordRoutes = express.Router()
 recordRoutes.route("/record").get(function (req, res) {
@@ -30,6 +31,7 @@ recordRoutes.route("/record/addcomment/:id").post(function (req, response) {
   let myobj = {
     _id: new ObjectId(),
     name: req.body.name,
+    email: req.body.email,
     comment: req.body.comment,
     date: req.body.date
   }
@@ -58,7 +60,7 @@ recordRoutes.route("/record/add").post(function (req, response) {
     response.json(res)
   })
 })
-recordRoutes.route("/record/login").post(async (req, response, next) => {
+recordRoutes.route("/record/login").post(expressAsyncHandler(async (req, response, next) => {
   const {error} = loginValidation(req.body)
   if (error) {
     const err = new Error(error.details[0].message)
@@ -68,12 +70,14 @@ recordRoutes.route("/record/login").post(async (req, response, next) => {
   const {email, password} = req.body
   let db_connect = getDb("portfolio")
   const user = await db_connect.collection("users").findOne({email})
-  async function matchPassword(p) {
-    return await bcryptjs.compare(p, user.password)
+  async function matchPassword(a,b) {
+    return await bcryptjs.compare(a,b)
   }
-  if (user && await matchPassword(password)) {
+  if (user && await matchPassword(password,user.password)) {
     response.json({
       firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
       token: generateToken(user._id)
     })
   } else {
@@ -81,34 +85,32 @@ recordRoutes.route("/record/login").post(async (req, response, next) => {
     err.status = 401
     next(err)
   }
-})
-recordRoutes.route("/record/register").post(async (req, response, next) => {
+}))
+recordRoutes.route("/record/register").post(expressAsyncHandler(async (req, response, next) => {
   const {error} = registrationValidation(req.body)
   if (error) {
     const err = new Error(error.details[0].message)
     err.status = 400
     next(err)
   }
+  let db_connect = getDb()
   const {firstName, lastName, email, password} = req.body
-  /*
-  const userExists = User.findOne({email})
-  if (userExists===true) {
+  const userExists = await db_connect.collection("users").findOne({email})
+  if (userExists) {
     const err = new Error("User already exists")
     err.status = 400
     next(err)
+  } else {
+    const salt = await bcryptjs.genSalt(10)
+    const user = await db_connect.collection("users").insertOne({
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
+      password: await bcryptjs.hash(password, salt)
+    })
+    response.json({message: "New user created"})
   }
-  */
-  const salt = await bcryptjs.genSalt(10)
-  const user = {
-    firstName: firstName,
-    lastName: lastName,
-    email: email,
-    password: await bcryptjs.hash(password, salt)
-  }
-  let db_connect = await getDb()
-  db_connect.collection("users").insertOne(user)
-  response.json({message: "New user created"})
-})
+}))
 recordRoutes.route("/record/deleteComment/:id").post((req, response) => {
   let db_connect = getDb()
   let myquery = { _id: ObjectId( req.params.id )}

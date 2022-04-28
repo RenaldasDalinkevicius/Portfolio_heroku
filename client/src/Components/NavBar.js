@@ -86,25 +86,19 @@ import { logout } from "./stateSlices/loginSlice"
         display: ${props => props.toggle?"flex":"none"};
     }
     `
-    const User = styled.button`
-    color: ${props => props.theme.name==="gradient"?props.theme.text:props.theme.accent};
-    background-color: transparent;
-    font-weight: 900;
-    text-decoration: none;
-    font-size: 1.5rem;
-    padding: .50em .25em;
-    justify-content: space-between;
-    text-transform: uppercase;
+    const User = styled(ThemeToggler)`
     border: none;
-    font-family: inherit;
-    cursor: pointer;
-    display: flex;
-    &: hover, &:focus {
+    border-image: none;
+    `
+    const UserSettingsWrapper = styled(ThemeChanger)`
+    `
+    const UserSettings = styled(ThemeUl)`
+    `
+    const Logout = styled.li`
+    padding: .50em .25em;
+    &: hover {
         color: ${props => props.theme.primary};
-        background: ${props => props.theme.text};
-    }
-    @media (max-width: 800px) {
-        font-size: 1.123rem;
+        background-color: ${props => props.theme.text};
     }
     `
 
@@ -112,17 +106,18 @@ export default function NavBar(props) {
     const themeContext = useContext(ThemeContext)
     const [navBar, setNavBar] = useState(false)
     const [themeChanger, setThemeChanger] = useState(false)
+    const [user, setUser] = useState(false)
     const { loggedInUser } = useSelector(state => state.login)
     const dispatch = useDispatch()
-
     useEffect(() => {
-        if (themeChanger) {
+        if (themeChanger || user) {
             setNavBar(true)
         }
-    }, [themeChanger])
+    }, [themeChanger, user])
     useEffect(() => {
         if (!navBar) {
             setThemeChanger(false)
+            setUser(false)
         }
     }, [navBar])
     const logoutHandler = () => {
@@ -135,7 +130,12 @@ export default function NavBar(props) {
             <Wrapper toggle={navBar}>
                 <NavLink to="/"><FontAwesomeIconF icon={faHouse}/>{navBar&&"main"}</NavLink>
                 <NavLink to="/projects"><FontAwesomeIconF icon={faGithub}/>{navBar&&"Projects"}</NavLink>
-                {!loggedInUser?<NavLink to="/login"><FontAwesomeIconF icon={faRightToBracket}/>{navBar&&"Login"}</NavLink>:<User onClick={() => logoutHandler()}><FontAwesomeIconF icon={faUser}/>{navBar&&`${loggedInUser.firstName}`}</User>}
+                {!loggedInUser?<NavLink to="/login"><FontAwesomeIconF icon={faRightToBracket}/>{navBar&&"Login"}</NavLink>:
+                <UserSettingsWrapper>
+                    <User onClick={() => setUser(user?false:true)}><FontAwesomeIconF icon={faUser}/>{navBar&&`${loggedInUser.firstName}`}
+                    </User>
+                    <UserSettings toggled={user}><Logout onClick={() => logoutHandler()}>Logout</Logout></UserSettings>
+                </UserSettingsWrapper>}
                 <ThemeChanger>
                     <ThemeToggler onClick={() => setThemeChanger(themeChanger?false:true)}>
                         <FontAwesomeIconF icon={faLightbulb}/>{navBar&&"Theme"}
