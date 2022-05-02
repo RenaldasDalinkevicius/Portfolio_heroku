@@ -49,17 +49,20 @@ import { useNavigate } from "react-router-dom"
     -webkit-text-fill-color: ${props => props.theme.name==="gradient"&&"transparent"};
     `
     const Submit = styled.button`
-    border: none;
+    border: 3px solid;
     padding: 1em;
     cursor: pointer;
     font-familiy: inherit;
     font-weight: 600;
     font-size: 1.25rem;
     margin: 1em 0;
-    color: ${props => props.theme.text};
-    background: ${props => props.theme.name==="gradient"&&props.theme.accent};
-    -webkit-background-clip: ${props => props.theme.name==="gradient"&&"text"};
-    -webkit-text-fill-color: ${props => props.theme.name==="gradient"&&"transparent"};
+    border-image: ${props => props.theme.name==="gradient"&&props.theme.accent} 1;
+    background: ${props => props.theme.name==="gradient"?props.theme.primary:props.theme.accent};
+    color: ${props => props.theme.name==="gradient"?props.theme.text:props.theme.primary};
+    transition: transform 200ms ease-in-out;
+    &:hover, &:focus {
+        transform: scale(1.1);
+    };
     `
     const Error = styled.p`
     font-size:1.25rem;
@@ -70,6 +73,7 @@ import { useNavigate } from "react-router-dom"
 export default function RegisterForm() {
     const dispatch = useDispatch()
     const {status, userRegistered, error} = useSelector(state => state.register)
+    const {loggedInUser} = useSelector(state => state.login)
     const TextInput = ({label, ...props}) => {
         const [field, meta] = useField(props)
         return (
@@ -84,10 +88,10 @@ export default function RegisterForm() {
     }
     const navigate = useNavigate()
     useEffect(() => {
-        if (userRegistered) {
+        if (userRegistered || loggedInUser) {
             navigate("/")
         }
-    }, [userRegistered])
+    }, [userRegistered, loggedInUser])
     return (
         <Formik initialValues={{firstName:"", lastName:"", email:"", password:""}}
         validationSchema={Yup.object({

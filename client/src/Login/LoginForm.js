@@ -50,7 +50,7 @@ import { useNavigate } from "react-router-dom"
     -webkit-text-fill-color: ${props => props.theme.name==="gradient"&&"transparent"};
     `
     const Submit = styled.button`
-    border: none;
+    border: 3px solid;
     padding: 1em;
     cursor: pointer;
     font-familiy: inherit;
@@ -58,9 +58,13 @@ import { useNavigate } from "react-router-dom"
     font-size: 1.25rem;
     margin: 1em 0;
     color: ${props => props.theme.text};
-    background: ${props => props.theme.name==="gradient"&&props.theme.accent};
-    -webkit-background-clip: ${props => props.theme.name==="gradient"&&"text"};
-    -webkit-text-fill-color: ${props => props.theme.name==="gradient"&&"transparent"};
+    border-image: ${props => props.theme.name==="gradient"&&props.theme.accent} 1;
+    background: ${props => props.theme.name==="gradient"?props.theme.primary:props.theme.accent};
+    color: ${props => props.theme.name==="gradient"?props.theme.text:props.theme.primary};
+    transition: transform 200ms ease-in-out;
+    &:hover, &:focus {
+        transform: scale(1.1);
+    };
     `
     const Register = styled.p`
     margin: 0;
