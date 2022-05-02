@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import {Spin as Hamburger} from "hamburger-react"
 import { useSelector, useDispatch } from "react-redux"
 import { logout } from "./stateSlices/loginSlice"
+import { useNavigate } from "react-router-dom"
 
     const NavBarDiv = styled.nav`
     display: flex;
@@ -120,9 +121,11 @@ export default function NavBar(props) {
             setUser(false)
         }
     }, [navBar])
+    const navigate = useNavigate()
     const logoutHandler = () => {
         dispatch(logout())
         localStorage.removeItem("loggedInUser")
+        navigate("/login")
     }
     return (
         <NavBarDiv toggle={navBar}>
