@@ -63,6 +63,9 @@ import { useNavigate } from "react-router-dom"
     width: 100%;
     ${props => props.toggled?"flex-direction: column;":"display: none;"};
     margin: 0;
+    @media (max-width: 800px) {
+        font-size: 1.123rem;
+    };
     `
     const ThemeToggler = styled.div`
     width: 100%;
@@ -72,12 +75,12 @@ import { useNavigate } from "react-router-dom"
     font-size: 1.5rem;
     border-bottom: 3px solid;
     border-image: ${props => props.theme.accent} 1;
+    @media (max-width: 800px) {
+        font-size: 1.123rem;
+    };
     &: hover {
         color: ${props => props.theme.primary};
         background-color: ${props => props.theme.text};
-    }
-    @media (max-width: 800px) {
-        font-size: 1.123rem;
     }
     `
     const Wrapper = styled.div`
@@ -100,7 +103,10 @@ import { useNavigate } from "react-router-dom"
     &: hover {
         color: ${props => props.theme.primary};
         background-color: ${props => props.theme.text};
-    }
+    };
+    @media (max-width: 800px) {
+        font-size: 1.123rem;
+    };
     `
 
 export default function NavBar(props) {

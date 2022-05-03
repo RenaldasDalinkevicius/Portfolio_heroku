@@ -50,7 +50,10 @@ import { useNavigate } from "react-router-dom"
     flex: 1 1 auto;
     display: flex;
     flex-direction: column;
-    max-width: 60%
+    max-width: 60%;
+    @media (max-width: 500px) {
+        max-width: 80%;
+    }
     `
     const Header = styled.h2`
     margin: 0 0 1em 0;
@@ -59,6 +62,9 @@ import { useNavigate } from "react-router-dom"
     -webkit-background-clip: ${props => props.theme.name==="gradient"&&"text"};
     -webkit-text-fill-color: ${props => props.theme.name==="gradient"&&"transparent"};
     text-align: center;
+    @media (max-width: 630px) {
+        margin 2em 0 1em 0;
+    }
     `
     const Submit = styled.button`
     border: 3px solid;
