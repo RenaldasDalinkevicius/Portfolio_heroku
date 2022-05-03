@@ -10,6 +10,7 @@ import Footer from "./Components/Footer"
 import {nanoid} from "nanoid"
 import LoginForm from "./Login/LoginForm"
 import RegisterForm from "./Login/RegisterForm"
+import NewProjectForm from "./Projects/NewProjectForm"
 
     const MainDiv = styled.main`
     display: flex;
@@ -45,6 +46,7 @@ export default function App() {
                         <NavBar themes={ThemeArr}/>
                         <Routes>
                             <Route path="/" element={<Main/>}/>
+                            <Route path="/projects/new" element={<NewProjectForm/>}/>
                             <Route path="/projects/*" element={<Projects/>}/>
                             <Route path="/login" element={<LoginForm/>}/>
                             <Route path="/register" element={<RegisterForm/>}/>

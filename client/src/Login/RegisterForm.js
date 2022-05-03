@@ -88,10 +88,15 @@ export default function RegisterForm() {
     }
     const navigate = useNavigate()
     useEffect(() => {
-        if (userRegistered || loggedInUser) {
+        if (loggedInUser) {
             navigate("/")
         }
-    }, [userRegistered, loggedInUser])
+    }, [loggedInUser])
+    useEffect(() => {
+        if (userRegistered) {
+            navigate("/login")
+        }
+    }, [userRegistered])
     return (
         <Formik initialValues={{firstName:"", lastName:"", email:"", password:""}}
         validationSchema={Yup.object({

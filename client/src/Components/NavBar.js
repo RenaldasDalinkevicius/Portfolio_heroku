@@ -137,7 +137,7 @@ export default function NavBar(props) {
                 <UserSettingsWrapper>
                     <User onClick={() => setUser(user?false:true)}><FontAwesomeIconF icon={faUser}/>{navBar&&`${loggedInUser.firstName}`}
                     </User>
-                    <UserSettings toggled={user}><Logout onClick={() => logoutHandler()}>Logout</Logout></UserSettings>
+                    <UserSettings toggled={user}><Logout onClick={() => logoutHandler()}>Logout</Logout>{loggedInUser.isAdmin&&<NavLink to="/projects/new">{"New project"}</NavLink>}</UserSettings>
                 </UserSettingsWrapper>}
                 <ThemeChanger>
                     <ThemeToggler onClick={() => setThemeChanger(themeChanger?false:true)}>
