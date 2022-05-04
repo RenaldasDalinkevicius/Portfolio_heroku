@@ -91,6 +91,7 @@ import { useNavigate } from "react-router-dom"
 export default function NewProject() {
     const dispatch = useDispatch()
     const {status, posted, error} = useSelector(state => state.newProject)
+    const {loggedInUser} = useSelector(state => state.login)
     const TextInput = ({label, ...props}) => {
         const [field, meta] = useField(props)
         return (
@@ -120,6 +121,11 @@ export default function NewProject() {
             navigate("/projects")
         }
     }, [posted])
+    useEffect(() => {
+        if (!loggedInUser.isAdmin) {
+            navigate("/projects")
+        }
+    }, [])
     return (
         <Formik initialValues={{title:"", text:"", github:"", live:"", img:"", about:"", aboutOther:""}}
         validationSchema={Yup.object({
@@ -147,7 +153,7 @@ export default function NewProject() {
         })}
         onSubmit={(values, {setSubmitting}) => {
             alert("New project posted")
-            setTimeout(() => {
+            loggedInUser.isAdmin&&setTimeout(() => {
                 dispatch(newProject(values))
             }, 400)
             setSubmitting(false)

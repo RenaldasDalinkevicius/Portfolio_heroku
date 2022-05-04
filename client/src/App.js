@@ -4,13 +4,14 @@ import Projects from "./Projects/Projects"
 import GlobalStyle from "./theme/globalStyle"
 import styled, {ThemeProvider} from "styled-components"
 import {Themes} from "./theme/Themes"
-import { HashRouter as Router, Routes, Route, Navigate } from "react-router-dom"
+import { HashRouter as Router, Routes, Route} from "react-router-dom"
 import NavBar from "./Components/NavBar"
 import Footer from "./Components/Footer"
 import {nanoid} from "nanoid"
 import LoginForm from "./Login/LoginForm"
 import RegisterForm from "./Login/RegisterForm"
 import NewProjectForm from "./Projects/NewProjectForm"
+import MissingPage from "./Components/MissingPage"
 
     const MainDiv = styled.main`
     display: flex;
@@ -50,7 +51,7 @@ export default function App() {
                             <Route path="/projects/*" element={<Projects/>}/>
                             <Route path="/login" element={<LoginForm/>}/>
                             <Route path="/register" element={<RegisterForm/>}/>
-                            <Route path="*" element={<Navigate to="/" replace/>}/>
+                            <Route path="*" element={<MissingPage/>}/>
                         </Routes>
                         <Footer/>
                     </Router>

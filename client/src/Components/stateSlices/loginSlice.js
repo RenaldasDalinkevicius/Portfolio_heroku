@@ -33,6 +33,7 @@ export const loginSlice = createSlice({
         [loginUser.fulfilled]: (state, action) => {
         state.status = "succeeded"
         state.loggedInUser = action.payload
+        state.error = null
         },
         [loginUser.rejected]: (state, action) => {
         state.status = "failed"

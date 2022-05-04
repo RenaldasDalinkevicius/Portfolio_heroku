@@ -40,6 +40,19 @@ import { faX } from "@fortawesome/free-solid-svg-icons"
     right: 0;
     margin-top: 48px;
     `
+    const Loading = styled.div`
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    `
+    const LoadingText = styled.h1`
+    background: ${props => props.theme.name==="gradient"&&props.theme.accent};
+    -webkit-background-clip: ${props => props.theme.name==="gradient"&&"text"};
+    -webkit-text-fill-color: ${props => props.theme.name==="gradient"&&"transparent"};
+    margin: 0;
+    font-size: 5rem;
+    `
 
 export default function Projects() {
     const [isRoute, setIsRoute] = useState(true)
@@ -56,14 +69,12 @@ export default function Projects() {
         let path = "/projects"
         navigate(path)
     }
-    function length(arr) {
-        return arr.length
-    }
+    const length = (arr) => arr.length
     const ProjectElement = !isLoading?data.map(data => {
         return <Project title={data.title} text={data.text} github={data.github} live={data.live} key={data._id} img={data.img} link={data._id} length={length(data.comments)}/>
-    }):"Loading"
+    }):<Loading><LoadingText>Loading...</LoadingText></Loading>
     const RouteElement = !isLoading&&data.map(data => {
-        return <Route path={`${data._id}`} key={data._id} element={<ProjectFixed><Wrapper><Exit icon={faX} onClick={() => routeChange()}/></Wrapper><Project title={data.title} text={data.text} img={data.img} isRoute={isRoute} about={data.about} aboutOther={data.aboutOther}/><Comment id={data._id} isComments={data.comments}/></ProjectFixed>}/>
+        return <Route path={`${data._id}`} key={data._id} element={<ProjectFixed><Wrapper><Exit icon={faX} onClick={() => routeChange()}/></Wrapper><Project title={data.title} text={data.text} img={data.img} isRoute={isRoute} about={data.about} aboutOther={data.aboutOther}/><Comment id={data._id}/></ProjectFixed>}/>
     })
     return (
         <ProjectsGrid>

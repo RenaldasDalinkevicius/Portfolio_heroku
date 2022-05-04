@@ -4,7 +4,7 @@ import axios from "axios"
 import {nanoid} from "nanoid"
 import AddComment from "./AddComment"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faTrash } from "@fortawesome/free-solid-svg-icons"
+import { faTrash, faFaceFrown } from "@fortawesome/free-solid-svg-icons"
 import { useSelector } from "react-redux"
 
     const Div = styled.div`
@@ -40,7 +40,8 @@ import { useSelector } from "react-redux"
     padding: 1em 0;
     display: flex;
     justify-content: flex-end;
-    border-bottom: 1px solid ${props => props.theme.text};
+    border-bottom: 1px solid;
+    border-image: ${props => props.theme.accent} 1;
     margin: 0 1em;
     `
     const Time = styled.p`
@@ -57,15 +58,32 @@ import { useSelector } from "react-redux"
         transform: scale(1.1);
     }
     `
+    const Empty = styled.div`
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin: 1em 0 0 0;
+    font-size: 1.25rem;
+    `
+    const EmptyText = styled.p`
+    margin: 1em 0 0 0;
+    font-size: 1.25rem;
+    text-align: center;
+    color: ${props => props.theme.name==="light"?props.theme.primary:props.theme.text};
+    `
+    const EmptyIcon = styled(FontAwesomeIcon)`
+    color: ${props => props.theme.name==="light"?props.theme.primary:props.theme.text};
+    font-size: 1.25rem;
+    `
 
 export default function Comment(props) {
     const [isLoading, setIsLoading] = useState(true)
     const [update, setUpdate] = useState(false)
     const [data, setData] = useState()
     const { loggedInUser } = useSelector(state => state.login)
-    useEffect(() => {
+    useEffect(async () => {
         if (update) {
-            (axios.get(`/record/getcomment/${props.id}`).then((res) => {
+            await (axios.get(`/record/getcomment/${props.id}`).then((res) => {
                 setData(res.data.comments)
                 setIsLoading(false)
                 setUpdate(false)
@@ -75,7 +93,8 @@ export default function Comment(props) {
     useEffect(() => {
         setUpdate(true)
     }, [])
-    const CommentArr = !isLoading?props.isComments&&data.map(data => {return <Div key={nanoid()}>
+    const length = (arr) => arr.length
+    const CommentArr = !isLoading?!length(data)<=0?data.map(data => {return <Div key={nanoid()}>
         <Wrapper>
             <Name>{`${data.name} :`}</Name>
             <Time>{data.date}</Time>
@@ -88,7 +107,7 @@ export default function Comment(props) {
         </Wrapper>
         <CommentText>{data.comment}</CommentText>
         </Div>
-    }):"Loading"
+    }):<Empty><EmptyIcon icon={faFaceFrown}/><EmptyText>The are no comments</EmptyText></Empty>:"Loading..."
     return (
         <MainDiv>
             {loggedInUser&&<AddComment id={props.id} update={setUpdate}/>}
