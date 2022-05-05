@@ -24,7 +24,7 @@ import Contact from "../Contact/Contact"
     overflow-y: auto;
     justify-content: space-evenly;
     flex-wrap: wrap;
-    border-top: 5px solid ${props => props.theme.text}
+    margin: 5px 0 0 0;
     `
     const InfoButton = styled.div`
     display: flex;

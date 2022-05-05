@@ -52,6 +52,20 @@ import { faX } from "@fortawesome/free-solid-svg-icons"
     -webkit-text-fill-color: ${props => props.theme.name==="gradient"&&"transparent"};
     margin: 0;
     font-size: 5rem;
+    @media (max-width: 400px) {
+        2rem;
+    }
+    `
+    const Header = styled.h2`
+    display: ${props => props.loading==="true"&&"none"};
+    margin: 1em 0;
+    text-align: center;
+    background: ${props => props.theme.name==="gradient"&&props.theme.accent};
+    -webkit-background-clip: ${props => props.theme.name==="gradient"&&"text"};
+    -webkit-text-fill-color: ${props => props.theme.name==="gradient"&&"transparent"};
+    grid-column: 1/-1;
+    text-transform: uppercase;
+    color: ${props => props.theme.name==="gradient"?null:props.theme.accent};
     `
 
 export default function Projects() {
@@ -78,6 +92,7 @@ export default function Projects() {
     })
     return (
         <ProjectsGrid>
+            <Header loading={(isLoading.toString())}>Projects</Header>
             {ProjectElement}
             <Routes>
                 {RouteElement}

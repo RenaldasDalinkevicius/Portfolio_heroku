@@ -2,6 +2,8 @@ import React from "react"
 import styled from "styled-components"
 import CV from "../../Pdf/RenaldasCV.pdf"
 import { useSelector } from "react-redux"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faArrowDown } from "@fortawesome/free-solid-svg-icons"
 
     const IntroductionDiv = styled.div`
     position: absolute;
@@ -10,10 +12,12 @@ import { useSelector } from "react-redux"
     display: flex;
     z-index: 2;
     padding: 0.5em;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
     `
     const IntroductionTextDiv = styled.div`
-    align-self: center;
-    margin: 0 auto;
+    margin-top: auto;
     `
     const IntrodunctionHeader = styled.h1`
     color: ${props => props.theme.name==="gradient"?null:props.theme.name==="light"?props.theme.primary:props.theme.accent};
@@ -43,6 +47,11 @@ import { useSelector } from "react-redux"
         transform: scale(1.1);
     }
     `
+    const Down = styled(FontAwesomeIcon)`
+    margin: auto 0 1em 0;
+    font-size: 2rem;
+    color: ${props => props.theme.name==="gradient"?null:props.theme.name==="light"?props.theme.primary:props.theme.accent};
+    `
 
 export default function Introduction() {
     const { loggedInUser} = useSelector(state => state.login)
@@ -53,6 +62,7 @@ export default function Introduction() {
                 <IntroductionText>{loggedInUser?"Enjoy your stay":"And this is my portfolio"}</IntroductionText>
                 <CvButton onClick={() => window.open(CV, "_blank")} >CV download</CvButton>
             </IntroductionTextDiv>
+            <Down icon={faArrowDown}/>
     </IntroductionDiv>
     )
 }

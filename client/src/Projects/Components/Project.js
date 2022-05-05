@@ -23,6 +23,7 @@ import { NavLink} from "react-router-dom";
     width: 100%;
     height: 100%;
     object-fit: ${props => props.isRoute?"fill":"cover"};
+    max-height: ${props => props.isRoute&&"500px"};
     `
     const ProjectTextDiv = styled.div`
     display: flex;

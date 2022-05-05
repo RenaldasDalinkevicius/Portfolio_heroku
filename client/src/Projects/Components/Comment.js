@@ -20,6 +20,10 @@ import { useSelector } from "react-redux"
     margin: 0 auto 0 0;
     font-weight: 600;
     word-wrap: anywhere;
+    @media (max-width: 350px) {
+        margin: 0 0.5em 0;
+        text-align: center;
+    }
     `
     const CommentText = styled.p`
     padding: 1em;
@@ -43,11 +47,18 @@ import { useSelector } from "react-redux"
     border-bottom: 1px solid;
     border-image: ${props => props.theme.accent} 1;
     margin: 0 1em;
+    @media (max-width: 350px) {
+        flex-direction: column;
+    }
     `
     const Time = styled.p`
     color: ${props => props.theme.text};
     margin: 0;
     font-size: 1rem;
+    @media (max-width: 350px) {
+        text-align: center;
+        margin: 0 0 0.5em 0;
+    }
     `
     const Delete = styled(FontAwesomeIcon)`
     color: ${props => props.theme.text};
