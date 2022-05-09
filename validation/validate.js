@@ -5,7 +5,8 @@ export const registrationValidation = formData => {
         firstName: Joi.string().required().max(20),
         lastName: Joi.string().required().max(20),
         email: Joi.string().required().email(),
-        password: Joi.string().required().min(5)
+        password: Joi.string().required().min(5),
+        passwordConfirm: Joi.string().required().min(5).valid(Joi.ref("password"))
     })
     return schema.validate(formData)
 }

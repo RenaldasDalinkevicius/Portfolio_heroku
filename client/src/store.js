@@ -7,7 +7,9 @@ const loggedInUserFromStorage = localStorage.getItem("loggedInUser")?JSON.parse(
 
 const preloadedState = {
     login: {
-        loggedInUser: loggedInUserFromStorage
+        loggedInUser: loggedInUserFromStorage,
+        status: "Login",
+        error: null
     }
 }
 

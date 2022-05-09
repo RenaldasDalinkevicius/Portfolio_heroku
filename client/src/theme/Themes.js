@@ -28,6 +28,13 @@ export const Themes = [
         name: "red accent"
     },
     {
+        text: "#ffff",
+        primary: "#000000",
+        secondary: "#202020",
+        accent: "#99D930",
+        name: "Lime-green"
+    },
+    {
         text: "#eeeeee",
         primary: "#000000",
         secondary: "#2a2438",

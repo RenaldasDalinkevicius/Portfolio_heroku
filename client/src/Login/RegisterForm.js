@@ -13,13 +13,14 @@ import { useNavigate } from "react-router-dom"
     const FormLabel = styled.label`
     text-align: center;
     font-size: 1.25rem;
-    margin: 0 0 1em 0;
+    margin: 0 0 0.5em 0;
     font-weight: 600;
     `
     const FormInput = styled.input`
     font-size: 1.25rem;
     border: none;
     padding: 1em;
+    margin: 0 0 0.5em 0;
     `
     const FormError = styled.h4`
     color: red;
@@ -42,7 +43,7 @@ import { useNavigate } from "react-router-dom"
     align-items: center;
     `
     const Header = styled.h2`
-    margin: 0 0 1em 0;
+    margin: 0 0 0.5em 0;
     text-transform: uppercase;
     background: ${props => props.theme.name==="gradient"&&props.theme.accent};
     -webkit-background-clip: ${props => props.theme.name==="gradient"&&"text"};
@@ -55,7 +56,7 @@ import { useNavigate } from "react-router-dom"
     font-familiy: inherit;
     font-weight: 600;
     font-size: 1.25rem;
-    margin: 1em 0;
+    margin: 0.5em 0 1em 0;
     border-image: ${props => props.theme.name==="gradient"&&props.theme.accent} 1;
     background: ${props => props.theme.name==="gradient"?props.theme.primary:props.theme.accent};
     color: ${props => props.theme.name==="gradient"?props.theme.text:props.theme.primary};
@@ -98,7 +99,7 @@ export default function RegisterForm() {
         }
     }, [userRegistered])
     return (
-        <Formik initialValues={{firstName:"", lastName:"", email:"", password:""}}
+        <Formik initialValues={{firstName:"", lastName:"", email:"", password:"", passwordConfirm:""}}
         validationSchema={Yup.object({
             firstName: Yup.string()
             .max(20, ">20")
@@ -110,7 +111,10 @@ export default function RegisterForm() {
             .email("Invalid")
             .required("Please enter your Email adress"),
             password: Yup.string()
-            .required("Please enter your password")
+            .required("Please enter your password"),
+            passwordConfirm: Yup.string()
+            .required("Confirm your password")
+            .oneOf([Yup.ref("password"), null], "Passwords must match")
         })}
         onSubmit={(values, {setSubmitting}) => {
             dispatch(registerUser(values))
@@ -140,7 +144,12 @@ export default function RegisterForm() {
                     name="password"
                     type="password"
                     placeholder="Password"/>
-                    <Submit type="submit">{status === "loading"?"Loading...":"Sign up"}</Submit>
+                    <TextInput
+                    label="Password confirmation"
+                    name="passwordConfirm"
+                    type="password"
+                    placeholder="Password"/>
+                    <Submit type="submit">{status}</Submit>
                 </MainWrapper>
             </StyledForm>
         </Formik>

@@ -14,13 +14,14 @@ import { useNavigate } from "react-router-dom"
     const FormLabel = styled.label`
     text-align: center;
     font-size: 1.25rem;
-    margin: 0 0 1em 0;
+    margin: 0 0 0.5em 0;
     font-weight: 600;
     `
     const FormInput = styled.input`
     font-size: 1.25rem;
     border: none;
     padding: 1em;
+    margin: 0 0 0.5em 0;
     `
     const FormError = styled.h4`
     color: red;
@@ -43,7 +44,7 @@ import { useNavigate } from "react-router-dom"
     align-items: center;
     `
     const Header = styled.h2`
-    margin: 0 0 1em 0;
+    margin: 0 0 0.5em 0;
     text-transform: uppercase;
     background: ${props => props.theme.name==="gradient"&&props.theme.accent};
     -webkit-background-clip: ${props => props.theme.name==="gradient"&&"text"};
@@ -56,7 +57,7 @@ import { useNavigate } from "react-router-dom"
     font-familiy: inherit;
     font-weight: 600;
     font-size: 1.25rem;
-    margin: 1em 0;
+    margin: 0.5em 0 1em 0;
     color: ${props => props.theme.text};
     border-image: ${props => props.theme.name==="gradient"&&props.theme.accent} 1;
     background: ${props => props.theme.name==="gradient"?props.theme.primary:props.theme.accent};
@@ -82,6 +83,7 @@ import { useNavigate } from "react-router-dom"
 export default function LoginForm() {
     const dispatch = useDispatch()
     const {status, loggedInUser, error} = useSelector(state => state.login)
+    console.log(status)
     const TextInput = ({label, ...props}) => {
         const [field, meta] = useField(props)
         return (
@@ -128,7 +130,7 @@ export default function LoginForm() {
                     name="password"
                     type="password"
                     placeholder="Password"/>
-                    <Submit type="submit">{status === "loading"?"Loading...":"Login"}</Submit>
+                    <Submit type="submit">{status}</Submit>
                     <Register>Don't have an account?{" "}<LinkRegister to="/register">Register</LinkRegister></Register>
                 </MainWrapper>
             </StyledForm>

@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"
 import axios from "axios"
 
 const initialState = {
-    status: "idle",
+    status: "Sign up",
     userRegistered: null,
     error: null
 }
@@ -30,12 +30,13 @@ export const registerSlice = createSlice({
             state.status = "loading"
         },
         [registerUser.fulfilled]: (state, action) => {
-            state.status = "succeeded"
+            state.status = "Sign up"
             state.userRegistered = true
+            state.error = null
         },
         [registerUser.rejected]: (state, action) => {
-            state.status = "failed",
             state.error = action.payload.message
+            state.status = "Sign up"
         }
     }
 })
