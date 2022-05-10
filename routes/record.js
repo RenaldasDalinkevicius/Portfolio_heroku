@@ -20,7 +20,7 @@ recordRoutes.route("/record/projects/new").post(expressAsyncHandler(async (req, 
   if (error) {
     const err = new Error(error.details[0].message)
     err.status = 400
-    next(err)
+    return next(err)
   }
   let db_connect = getDb()
   const {title, text, github, live, img, about, aboutOther}= req.body
@@ -28,7 +28,7 @@ recordRoutes.route("/record/projects/new").post(expressAsyncHandler(async (req, 
   if (titleExist) {
     const err = new Error("Project with this title already exists")
     err.status = 400
-    next(err)
+    return next(err)
   } else {
     const newPost = await db_connect.collection("projects").insertOne({
       title: title,
@@ -103,7 +103,7 @@ recordRoutes.route("/record/login").post(expressAsyncHandler(async (req, respons
   if (error) {
     const err = new Error(error.details[0].message)
     err.status = 400
-    next(err)
+    return next(err)
   }
   const {email, password} = req.body
   let db_connect = getDb("portfolio")
@@ -122,7 +122,7 @@ recordRoutes.route("/record/login").post(expressAsyncHandler(async (req, respons
   } else {
     const err = new Error("Invalid email or password")
     err.status = 401
-    next(err)
+    return next(err)
   }
 }))
 recordRoutes.route("/record/register").post(expressAsyncHandler(async (req, response, next) => {
@@ -130,7 +130,7 @@ recordRoutes.route("/record/register").post(expressAsyncHandler(async (req, resp
   if (error) {
     const err = new Error(error.details[0].message)
     err.status = 400
-    next(err)
+    return next(err)
   }
   let db_connect = getDb()
   const {firstName, lastName, email, password} = req.body
@@ -138,7 +138,7 @@ recordRoutes.route("/record/register").post(expressAsyncHandler(async (req, resp
   if (userExists) {
     const err = new Error("User already exists")
     err.status = 400
-    next(err)
+    return next(err)
   } else {
     const salt = await bcryptjs.genSalt(10)
     const user = await db_connect.collection("users").insertOne({

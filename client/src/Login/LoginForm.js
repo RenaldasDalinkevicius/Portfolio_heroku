@@ -83,7 +83,6 @@ import { useNavigate } from "react-router-dom"
 export default function LoginForm() {
     const dispatch = useDispatch()
     const {status, loggedInUser, error} = useSelector(state => state.login)
-    console.log(status)
     const TextInput = ({label, ...props}) => {
         const [field, meta] = useField(props)
         return (
