@@ -32,7 +32,7 @@ export const Themes = [
         primary: "#000000",
         secondary: "#202020",
         accent: "#99D930",
-        name: "Lime-green"
+        name: "Lime green"
     },
     {
         text: "#eeeeee",

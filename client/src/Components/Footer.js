@@ -10,7 +10,7 @@ import { faGithub } from "@fortawesome/free-brands-svg-icons";
     flex-direction: column;
     text-align: center;
     background: ${props => props.theme.accent};
-    margin-top: 5px;
+    margin-top: 2em;
     color: ${props => props.theme.primary};
     width: 100%;
     `

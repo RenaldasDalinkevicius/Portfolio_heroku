@@ -7,7 +7,7 @@ import axios from "axios"
     const StyledForm = styled(Form)`
     min-height: 100vh;
     background-color: ${props => props.theme.primary};
-    margin-top: 5px;
+    margin-top: 2em;
     color: ${props => props.theme.text};
     `
     const FormInput = styled.input`

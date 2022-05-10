@@ -12,11 +12,12 @@ import LoginForm from "./Login/LoginForm"
 import RegisterForm from "./Login/RegisterForm"
 import NewProjectForm from "./Projects/NewProjectForm"
 import MissingPage from "./Components/MissingPage"
+import Tsparticles from "./Components/Tsparticles"
+import TsparticlesGradient from "./Components/TsparticlesGradient"
 
     const MainDiv = styled.main`
     display: flex;
     flex-direction: column;
-    background: ${props => props.theme.text};
     `
     const Theme = styled.li`
     padding: .50em .25em;
@@ -41,6 +42,8 @@ export default function App() {
     return (
         <ThemeProvider theme={currentTheme}>
             <UserContext.Provider value={currentTheme}>
+                {currentTheme.name==="gradient"?<TsparticlesGradient bg={currentTheme.secondary} start={currentTheme.start} end={currentTheme.end}/>:
+                <Tsparticles bg={currentTheme.secondary} color={currentTheme.accent}/>}
                 <MainDiv>
                     <GlobalStyle/>
                     <Router>

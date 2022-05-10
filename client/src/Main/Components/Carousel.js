@@ -6,7 +6,7 @@ import Introduction from "./Introduction"
 import axios from "axios";
 
     const CarouselWrapper = styled.div`
-    margin-bottom: 5px;
+    margin-bottom: 2em;
     overflow: hidden;
     z-index:1;
     `

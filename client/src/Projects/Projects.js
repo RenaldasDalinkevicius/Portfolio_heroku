@@ -8,7 +8,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faX } from "@fortawesome/free-solid-svg-icons"
 
     const ProjectsGrid = styled.div`
-    background-color: ${props => props.theme.primary};
     color: ${props => props.theme.text};
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 400px));

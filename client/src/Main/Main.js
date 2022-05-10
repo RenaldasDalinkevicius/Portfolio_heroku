@@ -18,13 +18,13 @@ import Contact from "../Contact/Contact"
     flex-direction: column;
     `
     const InfoButtons = styled.div`
-    background-color: ${props => props.theme.secondary};
+    background-color: ${props => props.theme.primary};
     display: flex;
     padding: 1em;
     overflow-y: auto;
     justify-content: space-evenly;
     flex-wrap: wrap;
-    margin: 5px 0 0 0;
+    margin: 2em 0 0 0;
     `
     const InfoButton = styled.div`
     display: flex;

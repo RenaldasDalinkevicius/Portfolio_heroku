@@ -51,8 +51,11 @@
     "react-move": "^6.5.0",
     "react-redux": "^8.0.1",
     "react-router-dom": "^6.2.2",
+    "react-tsparticles": "^2.0.6",
     "react-visibility-sensor": "^5.1.1",
     "styled-components": "^5.3.3",
+    "tsparticles": "^2.0.6",
+    "tsparticles-updater-gradient": "^2.0.6",
     "yup": "^0.32.11"
   }
 }
