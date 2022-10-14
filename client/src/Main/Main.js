@@ -15,7 +15,12 @@ import Contact from "../Contact/Contact"
     `
     const InfoDiv = styled.div`
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    height: 70vh;
+    @media (max-width: 630px) {
+        height: 100vh;
+        flex-direction: column;
+    }
     `
     const InfoButtons = styled.div`
     background-color: ${props => props.theme.primary};
@@ -24,7 +29,12 @@ import Contact from "../Contact/Contact"
     overflow-y: auto;
     justify-content: space-evenly;
     flex-wrap: wrap;
-    margin: 2em 0 0 0;
+    margin: 0;
+    width: 50%;
+    @media (max-width: 630px) {
+        width: 100%;
+        height: 50%;
+    }
     `
     const InfoButton = styled.div`
     display: flex;

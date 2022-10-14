@@ -4,7 +4,7 @@ export default {
         {
             id: 1,
             title: "Course",
-            progress: 50,
+            progress: 87,
             background: "https://jobloop.no/images/jobloop-logo-white.png"
         },
         {
@@ -16,47 +16,54 @@ export default {
         {
             id: 3,
             title: "CSS",
-            progress: 87,
+            progress: 90,
             background: "https://upload.wikimedia.org/wikipedia/commons/6/62/CSS3_logo.svg"
             
         },
         {
             id: 4,
             title: "JavaScript",
-            progress: 83,
+            progress: 80,
             background: "https://cdn.worldvectorlogo.com/logos/javascript-1.svg"
         },
         {
             id: 5,
             title: "React",
-            progress: 65,
+            progress: 79,
             background: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/640px-React-icon.svg.png"
         },
         {
             id: 6,
             title: "Python",
-            progress: 60,
+            progress: 50,
             background: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Python_logo_01.svg/640px-Python_logo_01.svg.png"
+        },
+        {
+            id: 7,
+            title: "Flutter",
+            progress: 80,
+            background: "https://raw.githubusercontent.com/flutter/website/master/src/_assets/image/flutter-logomark-320px.png"
         }
     ],
+    // "about" / "title" / "header" / "aboutOther"
     "about": [
         {
             id: 1,
             title: "About me",
-            about: "I am currently taking a course, where i learn HTML, CSS, JavaScript and Python. And it is exiting, i always wanted to learn myself some programming languages, just because i though that it was really cool and interesting, but i never had the time or effort to actually learn it.",
-            header: "Well, up until i actually decided to do it"
+            about: "Currently taking a course where i learn different programming languages, such as HTML, CSS, Python and JavaScript. I always had an intrest in programming, but never actually got around to learning anything, so i'm really glad i started taking programming courses. I learned so many new things, and many different programming languages.",
+            aboutOther: "In my free-time i mostly enjoy playing video games, or going to the gym."
         },
         {
             id: 2,
             title: "How i started",
-            about: "At the time i really did not have any direction, i was unsure if i should study, or continue working, and then i got an offer to start taking programming courses at Jobloop, at first i was unsure, because i was never good at design, and making a website is all about the design.",
-            aboutOther: "But i thought why not, and gave it a shot, and immediately got hooked, i all of the sudden knew what i wanted to work as. I wanted work as a developer, programming is so much fun, there are so many different languages, it honestly is mind-blowing."
+            about: "At the time i really did not have any direction, i was unsure if i should study, or continue working, but then i got an offer to start taking programming courses at Jobloop, at first i was unsure, because from someone who has never done any real programming, making a website seemed impossible, but i thought, why not try it and just see how it goes.",
+            aboutOther: "At first i was overwhelmed, it truly did seem impossible, but i pushed through. What was most helpful, was not siting through 10 hour videos on how to make a website, but actually just trying to do things yourself, looking at stackoverflow for how to do certain things, so you end up having a vague idea on how things actually work."
         },
         {
             id: 3,
             title: "Making progress",
-            about: "I am making good progress, there are just so many things to learn that sometimes it gets overwhelming, but thats part of the fun, learning new things.",
-            aboutOther: "Even when making this website, i learned so many new things, and there are so many more things that i want to learn, i am really exited for the future, and becoming a full-time Developer"
+            about: "Currently i'm an intern for a company, i've been tasked with making an App",
+            aboutOther: "I had to make this app in flutter, which i've never used before, or actually made any apps before, so it was a rough start. But after a few months i've become pretty good at Flutter"
         }
     ]
 }

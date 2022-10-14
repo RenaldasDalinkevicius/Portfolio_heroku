@@ -6,8 +6,13 @@ import { FontAwesomeIcon as Icon } from "@fortawesome/react-fontawesome";
 import { faAngleRight, faAngleLeft} from "@fortawesome/free-solid-svg-icons";
 
     const InfoDisplay = styled.div`
-    height: 100vh;
+    height: 100%;
     background-color: ${props => props.theme.primary};
+    width: 50%;
+    @media (max-width: 630px) {
+        width: 100%;
+        height: 50%;
+    }
     `
     const InfoTitle = styled.h2`
     margin: 1em 0 0;
@@ -24,6 +29,7 @@ import { faAngleRight, faAngleLeft} from "@fortawesome/free-solid-svg-icons";
     `
     const CarouselStyled = styled(CarouselProvider)`
     display: flex;
+    height: 100%;
     justify-content: space-between;
     `
     const SlideStyled = styled(Slide)`
@@ -38,7 +44,7 @@ import { faAngleRight, faAngleLeft} from "@fortawesome/free-solid-svg-icons";
     const Wrapper = styled.div`
     display: flex;
     width: 100%;
-    height: 100vh;
+    height: 100%;
     flex-direction: column;
     `
     const StyledDot = styled(Dot)`
