@@ -2,4 +2,4 @@
 
 MERN project using Heroku
 
-https://kodehode.herokuapp.com/
+https://renaldas-portfolio.onrender.com/
