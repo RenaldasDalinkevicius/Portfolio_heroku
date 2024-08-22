@@ -117,7 +117,7 @@ recordRoutes.route("/record/login").post(expressAsyncHandler(async (req, respons
       lastName: user.lastName,
       email: user.email,
       token: generateToken(user._id),
-      isAdmin: user.isAdmin?true:false
+      isAdmin: user.isAdmin
     })
   } else {
     const err = new Error("Invalid email or password")
@@ -139,15 +139,20 @@ recordRoutes.route("/record/register").post(expressAsyncHandler(async (req, resp
     const err = new Error("User already exists")
     err.status = 400
     return next(err)
-  } else {
+  } else if (!userExists) {
     const salt = await bcryptjs.genSalt(10)
     const user = await db_connect.collection("users").insertOne({
       firstName: firstName,
       lastName: lastName,
       email: email,
+      isAdmin: false,
       password: await bcryptjs.hash(password, salt)
     })
     response.json({message: "New user created"})
+  } else {
+    const err = new Error("Unknown error")
+    err.status = 400
+    return next(err)
   }
 }))
 const __dirname = path.resolve(path.dirname(""))
